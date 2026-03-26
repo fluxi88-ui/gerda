@@ -179,11 +179,14 @@
 
                 <!-- Abschnitt 3: Datei -->
                 <fieldset>
-                    <legend>📎 Datei</legend>
+                    <legend>📎 Dokument</legend>
 
                     <div class="form-group">
-                        <label for="datei">Datei hochladen</label>
-                        <input type="file" name="datei" id="datei">
+                        <label for="dokument">Dokument hochladen</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+                        <input type="file" id="dokument" name="dokument"
+                               accept="application/pdf,image/jpeg,image/png,image/gif">
+                        <small style="color:#888">Erlaubt: PDF, JPG, PNG, GIF – max. 2 MB</small>
                     </div>
 
                 </fieldset>

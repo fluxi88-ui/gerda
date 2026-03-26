@@ -22,7 +22,7 @@ try {
 }
 
 $stmt = $pdo->prepare('
-    SELECT a.benutzername, a.e_mail,
+    SELECT a.benutzername, a.e_mail, a.profilbild,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
            k.telefon, k.ort, k.plz, k.straße
     FROM account a
@@ -94,6 +94,13 @@ function esc(string $v): string {
 
             <?php if ($erfolg): ?>
                 <div class="acc-success"><?= esc($erfolg) ?></div>
+            <?php endif; ?>
+
+            <?php if (!empty($user['profilbild'])): ?>
+            <div style="text-align:center; margin-bottom:20px;">
+                <img src="data:image/jpeg;base64,<?= base64_encode($user['profilbild']) ?>"
+                     alt="Profilbild" style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid #43a047;">
+            </div>
             <?php endif; ?>
 
             <div class="acc-card">

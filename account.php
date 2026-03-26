@@ -66,6 +66,18 @@ $plz_db        = !empty($plz) ? (int)$plz : null;
 try {
     $pdo->beginTransaction();
 
+    // Profilbild hochladen (optional)
+    $profilbild_sql = '';
+    $profilbild_param = [];
+    if (!empty($_FILES['profilbild']['tmp_name']) && is_uploaded_file($_FILES['profilbild']['tmp_name'])) {
+        $erlaubte = ['image/jpeg', 'image/png', 'image/gif'];
+        if (in_array($_FILES['profilbild']['type'], $erlaubte) && $_FILES['profilbild']['size'] <= 2 * 1024 * 1024) {
+            $profilbild_binary = file_get_contents($_FILES['profilbild']['tmp_name']);
+            $pdo->prepare('UPDATE account SET profilbild=? WHERE acc_id=?')
+                ->execute([$profilbild_binary, $_SESSION['acc_id']]);
+        }
+    }
+
     $pdo->prepare('UPDATE kunde SET anrede=?, vorname=?, nachname=?, geburtstag=?, telefon=?, ort=?, plz=?, straße=? WHERE kn_id=?')
         ->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $ort, $plz_db, $strasse, $kn_id]);
 

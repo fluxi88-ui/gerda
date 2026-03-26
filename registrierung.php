@@ -55,6 +55,23 @@ if (!empty($fehler)) {
     exit;
 }
 
+// Dokument-Datei einlesen (optional)
+$dokument_db = null;
+if (!empty($_FILES['dokument']['tmp_name']) && is_uploaded_file($_FILES['dokument']['tmp_name'])) {
+    $erlaubte_typen = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif'];
+    if (!in_array($_FILES['dokument']['type'], $erlaubte_typen)) {
+        $_SESSION['fehler'] = ['Nur PDF, JPG, PNG oder GIF erlaubt.'];
+        header('Location: registrierung_form.php');
+        exit;
+    }
+    if ($_FILES['dokument']['size'] > 2 * 1024 * 1024) {
+        $_SESSION['fehler'] = ['Datei darf maximal 2 MB groß sein.'];
+        header('Location: registrierung_form.php');
+        exit;
+    }
+    $dokument_db = file_get_contents($_FILES['dokument']['tmp_name']);
+}
+
 // Datenbankverbindung
 $host   = 'localhost';
 $dbname = 'Konvoltic';
@@ -97,9 +114,9 @@ try {
     $pdo->beginTransaction();
 
     // Kunde anlegen
-    $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse]);
+    $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße, dokument)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse, $dokument_db]);
     $kn_id = $pdo->lastInsertId();
 
     // Account anlegen (Benutzername = E-Mail oder Vorname+Nachname)

@@ -96,7 +96,7 @@ function esc(string $v): string {
                 <div class="acc-error"><?= esc($fehler) ?></div>
             <?php endif; ?>
 
-            <form method="post" action="account.php">
+            <form method="post" action="account.php" enctype="multipart/form-data">
 
                 <fieldset>
                     <legend>👤 Persönliche Daten</legend>
@@ -178,6 +178,19 @@ function esc(string $v): string {
                         <input type="password" id="passwort_neu2" name="passwort_neu2"
                                placeholder="Passwort wiederholen">
                     </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>🗛c️ Profilbild</legend>
+
+                    <div class="form-group">
+                        <label for="profilbild">Profilbild hochladen</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+                        <input type="file" id="profilbild" name="profilbild"
+                               accept="image/jpeg,image/png,image/gif">
+                        <small style="color:#888">Erlaubt: JPG, PNG, GIF – max. 2 MB. Leer lassen = nicht ändern.</small>
+                    </div>
+
                 </fieldset>
 
                 <p class="pflicht-hinweis">* Pflichtfelder</p>
