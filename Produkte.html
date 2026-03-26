@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konvoltic – Produkte</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="produkte.css">
+</head>
+
+<!-- alle produkte auf einen blick -->
+<body>
+
+    <!-- menü und loginbereich -->
+            <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo-container">
+            <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#server" class="nav-link">Server &amp; Hardware</a></li>
+                <li><a href="#cloud" class="nav-link">Cloud</a></li>
+                <li><a href="#beratung" class="nav-link">Beratung</a></li>
+                <li><a href="#bio" class="nav-link">Bio-Produkte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- der hero mit dem seitentitel -->
+    <div class="catalog-hero">
+        <h1>📦 Produktkatalog</h1>
+        <p>Unsere gesamte Produktpalette — von energieeffizienten Servern bis hin zu nachhaltig angebauten
+            Bio-Lebensmitteln.</p>
+    </div>
+
+    <main class="container">
+
+        <!-- server und hardware: die teuren kästen -->
+        <h2 class="category-title" id="server">🖥️ Server &amp; Hardware</h2>
+        <div class="catalog-grid" data-category="server">
+            <div class="catalog-card">
+                <div class="card-image">🖥️<span class="card-badge top">Bestseller</span></div>
+                <div class="card-body">
+                    <h3>GreenServer S1</h3>
+                    <p>Energieeffizienter Einstiegsserver für kleine Unternehmen. Zertifiziert nach Energy Star, 40 %
+                        weniger Stromverbrauch als herkömmliche Modelle.</p>
+                    <div class="card-tags">
+                        <span class="tag">Energy Star</span><span class="tag">1U Rack</span><span
+                            class="tag">ARM-Prozessor</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">ab 1.290 € <span>/ Stück</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🗄️<span class="card-badge eco">ECO</span></div>
+                <div class="card-body">
+                    <h3>GreenServer Pro X</h3>
+                    <p>Hochleistungsserver mit Flüssigkühlung. Server-Abwärme wird direkt in das Gewächshaussystem
+                        eingespeist und spart bis zu 70 % Heizkosten.</p>
+                    <div class="card-tags">
+                        <span class="tag">Flüssigkühlung</span><span class="tag">Abwärme-Nutzung</span><span
+                            class="tag">2U Rack</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">ab 4.800 € <span>/ Stück</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">♻️<span class="card-badge neu">Neu</span></div>
+                <div class="card-body">
+                    <h3>Refurbished Rack-Set</h3>
+                    <p>Generalüberholte Enterprise-Hardware aus zweiter Hand. Vollständig getestet, 2 Jahre Garantie –
+                        ressourcenschonend und kosteneffizient.</p>
+                    <div class="card-tags">
+                        <span class="tag">Refurbished</span><span class="tag">2 J. Garantie</span><span
+                            class="tag">CO₂-neutral</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">ab 690 € <span>/ Set</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- cloud: daten irgendwo in der wolke speichern -->
+        <h2 class="category-title" id="cloud">☁️ Cloud-Lösungen</h2>
+        <div class="catalog-grid" data-category="cloud">
+            <div class="catalog-card">
+                <div class="card-image">☁️</div>
+                <div class="card-body">
+                    <h3>GreenCloud Starter</h3>
+                    <p>Einstiegspaket für KMUs: 500 GB sicherer Cloud-Speicher, tägliche Backups, betrieben mit 100 %
+                        erneuerbarer Energie.</p>
+                    <div class="card-tags">
+                        <span class="tag">500 GB</span><span class="tag">DSGVO-konform</span><span
+                            class="tag">Österreich</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">29 € <span>/ Monat</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🌐<span class="card-badge top">Beliebt</span></div>
+                <div class="card-body">
+                    <h3>GreenCloud Business</h3>
+                    <p>Skalierbarer Cloud-Workspace für mittelständische Unternehmen: 5 TB Speicher, virtuelle Desktops,
+                        24/7-Support und automatisiertes Monitoring.</p>
+                    <div class="card-tags">
+                        <span class="tag">5 TB</span><span class="tag">VDI</span><span class="tag">24/7 Support</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">149 € <span>/ Monat</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🔒</div>
+                <div class="card-body">
+                    <h3>SecureCloud Enterprise</h3>
+                    <p>Private-Cloud-Lösung für Großunternehmen mit höchsten Sicherheitsanforderungen. ISO 27001
+                        zertifiziert, dedizierte Hardware, SLA-Garantie.</p>
+                    <div class="card-tags">
+                        <span class="tag">ISO 27001</span><span class="tag">Private Cloud</span><span class="tag">SLA
+                            99,9 %</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">auf Anfrage</div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="category-title" id="beratung">💼 Beratung &amp; Services</h2>
+        <div class="catalog-grid" data-category="beratung">
+            <div class="catalog-card">
+                <div class="card-image">📊</div>
+                <div class="card-body">
+                    <h3>Green-IT Audit</h3>
+                    <p>Vollständige Analyse Ihrer bestehenden IT-Infrastruktur. Wir zeigen Einsparpotenziale auf und
+                        erstellen einen konkreten Maßnahmenplan.</p>
+                    <div class="card-tags">
+                        <span class="tag">1–3 Tage</span><span class="tag">Bericht</span><span class="tag">Vor
+                            Ort</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">ab 890 € <span>/ Projekt</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🛠️<span class="card-badge neu">Neu</span></div>
+                <div class="card-body">
+                    <h3>Implementierungspaket</h3>
+                    <p>Wir setzen Ihre Green-IT-Strategie um: Installation, Konfiguration und Schulung Ihrer
+                        Mitarbeitenden inklusive.</p>
+                    <div class="card-tags">
+                        <span class="tag">Full-Service</span><span class="tag">Schulung</span><span class="tag">Support
+                            6 Mo.</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">ab 2.400 € <span>/ Paket</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">📈</div>
+                <div class="card-body">
+                    <h3>Energie-Monitoring Abo</h3>
+                    <p>Laufende Überwachung und Optimierung Ihres Energieverbrauchs. Monatliche Reports, automatische
+                        Warnungen und persönlicher Ansprechpartner.</p>
+                    <div class="card-tags">
+                        <span class="tag">Dashboard</span><span class="tag">Monatsbericht</span><span
+                            class="tag">Alarmierung</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">79 € <span>/ Monat</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- bio-sachen: salat aus dem server-gewächshaus -->
+        <h2 class="category-title" id="bio">🌱 Bio-Lebensmittel</h2>
+        <div class="catalog-grid" data-category="bio">
+            <div class="catalog-card">
+                <div class="card-image">🥬<span class="card-badge eco">ECO</span></div>
+                <div class="card-body">
+                    <h3>Hydroponik-Salate (Saisonbox)</h3>
+                    <p>Frische Blattsalatmischung aus unserem serverwärmebeheizten Gewächshaus. Wöchentliche Lieferung,
+                        regional und ohne Pestizide.</p>
+                    <div class="card-tags">
+                        <span class="tag">Hydroponik</span><span class="tag">Pestizid­frei</span><span
+                            class="tag">Regional</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">12 € <span>/ Woche</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🌿<span class="card-badge top">Bestseller</span></div>
+                <div class="card-body">
+                    <h3>Kräuter-Abo Premium</h3>
+                    <p>Basilikum, Minze, Petersilie & Co. – frisch geschnitten, ganzjährig verfügbar dank Vertical
+                        Farming. Ideal für Gastronomie und Privatkunden.</p>
+                    <div class="card-tags">
+                        <span class="tag">Vertical Farming</span><span class="tag">Ganzjährig</span><span class="tag">6
+                            Sorten</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">18 € <span>/ Woche</span></div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+            <div class="catalog-card">
+                <div class="card-image">🎁</div>
+                <div class="card-body">
+                    <h3>Firmen-Abo Großpackung</h3>
+                    <p>Regelmäßige Lieferung frischer Bio-Produkte direkt an Ihr Unternehmen. Flexible Mengen,
+                        individuelle Zusammenstellung, Rechnungslegung möglich.</p>
+                    <div class="card-tags">
+                        <span class="tag">B2B</span><span class="tag">Flexibel</span><span class="tag">Rechnung</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">auf Anfrage</div>
+                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- der kasten ganz am ende - angebot anfragen -->
+        <div>
+            <h2>Individuelles Angebot gewünscht?</h2>
+            <p>Wir beraten Sie kostenlos und erstellen ein maßgeschneidertes Paket für Ihr Unternehmen.</p>
+        </div>
+        <a href="Beratung.html" class="cta-btn">Jetzt Beratung anfragen →</a>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+         <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="Beratung.html">Beratung</a>
+                <a href="Impressum.html">Impressum</a>
+            </nav>
+       <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG<br>
+            Webdesign by Gerda Wagner: Konvoltic OG<br>
+            Alle Rechte vorbehalten. Alle Inhalte sind urheberrechtlich geschützt.</small></p>
+        </div>
+    </footer>
+
+
+</body>

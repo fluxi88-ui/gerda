@@ -1,0 +1,197 @@
+/* =============================================
+   Konvoltic OG – account.css
+   ============================================= */
+
+.acc-page {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+}
+
+.acc-page h1 {
+    font-size: 28px;
+    color: #1b5e20;
+    margin-bottom: 6px;
+}
+
+.acc-welcome {
+    color: #555;
+    margin-bottom: 28px;
+    font-size: 16px;
+}
+
+.acc-success {
+    background: #e8f5e9;
+    border: 1px solid #43a047;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #2e7d32;
+}
+
+.acc-error {
+    background: #fdecea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #c0392b;
+}
+
+fieldset {
+    border: 2px solid #c8e6c9;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: white;
+}
+
+legend {
+    font-weight: 700;
+    color: #1b5e20;
+    padding: 0 8px;
+    font-size: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #43a047;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 4px;
+}
+
+.radio-group label {
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-submit {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #1b5e20;
+}
+
+.btn-cancel {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    transition: border-color 0.2s;
+}
+
+.btn-cancel:hover {
+    border-color: #999;
+    color: #333;
+}
+
+.pflicht-hinweis {
+    font-size: 13px;
+    color: #888;
+    margin: 4px 0 16px;
+}
+
+.acc-card {
+    background: white;
+    border: 2px solid #c8e6c9;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.acc-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 15px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8f5e9;
+}
+
+.acc-edit-btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2e7d32;
+    text-decoration: none;
+    border: 1px solid #43a047;
+    padding: 5px 12px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.acc-edit-btn:hover {
+    background: #e8f5e9;
+}
+
+.acc-dl {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px 16px;
+    margin: 0;
+}
+
+.acc-dl dt {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+}
+
+.acc-dl dd {
+    margin: 0;
+    font-size: 14px;
+    color: #222;
+}

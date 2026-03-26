@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Konvoltic OG | Green IT Lösungen</title>
+    <meta name="description"
+        content="Konvoltic bietet nachhaltige Green IT Lösungen, energieeffiziente Server und Cloud-Systeme.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="website.css">
+</head>
+
+<body>
+
+    <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo-container">
+            <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
+        </div>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#warum" class="nav-link">Warum Konvoltic?</a></li>
+                <li><a href="#visionen" class="nav-link">Die Vision</a></li>
+                <li><a href="#loesungen" class="nav-link">Unsere Lösungen</a></li>
+                <li><a href="#produkte" class="nav-link">Produkte</a></li>
+                <li><a href="#greenit" class="nav-link">Green IT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🌱 Nachhaltige IT seit 2024</div>
+            <h1 class="hero-title">IT, die der Erde<br><span class="hero-accent">etwas zurückgibt</span></h1>
+            <p class="hero-sub">Konvoltic verbindet energieeffiziente Server, grüne Cloud-Lösungen und biologischen Anbau zu einem einzigartigen Kreislaufsystem.</p>
+            <div class="hero-ctas">
+                <a href="Produkte.html" class="hero-btn-primary">Produkte entdecken</a>
+                <a href="Kreislauf.html" class="hero-btn-secondary">Unser Kreislauf →</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-orb">🌍</div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">90<span class="stat-unit">%</span></span>
+            <span class="stat-label">weniger Wasserverbrauch</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">100<span class="stat-unit">%</span></span>
+            <span class="stat-label">erneuerbare Energie</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">0<span class="stat-unit">g</span></span>
+            <span class="stat-label">CO₂ Netto-Ausstoß</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">24<span class="stat-unit">/7</span></span>
+            <span class="stat-label">ganzjähriger Betrieb</span>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- WARUM KONVOLTIC – Feature Cards -->
+        <section id="warum" class="home-section">
+            <div class="section-label">Warum wir?</div>
+            <h2 class="section-title">Technologie trifft Nachhaltigkeit</h2>
+            <p class="section-sub">Drei Säulen, die unsere Produkte von herkömmlicher IT unterscheiden.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Green Server</h3>
+                    <p>Energieeffiziente Hardware betrieben mit 100 % erneuerbarem Strom und modernster Flüssigkühlung.</p>
+                    <a href="Produkte.html" class="feature-link">Mehr erfahren →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">☁️</div>
+                    <h3>Cloud-Lösungen</h3>
+                    <p>Sichere Datenspeicherung in unserer eigenen Infrastruktur – mit minimalem ökologischem Fußabdruck.</p>
+                    <a href="Produkte.html" class="feature-link">Mehr erfahren →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Recycling & Kreislauf</h3>
+                    <p>Server-Abwärme heizt unsere Gewächshäuser. Altes Gerät wird fachgerecht aufbereitet und wiederverwertet.</p>
+                    <a href="Kreislauf.html" class="feature-link">Mehr erfahren →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION -->
+        <section class="mission-statement">
+            <div class="mission-inner">
+                <div class="mission-icon-large">🌿</div>
+                <h2>Unsere Mission</h2>
+                <p>Wir unterstützen Unternehmen dabei, ihre IT-Infrastruktur nachhaltig zu gestalten.
+                   Die IT-Branche ist ein Schlüsselhebel für den Klimaschutz – und wir nutzen ihn.</p>
+                <a href="Kreislauf.html" class="mission-cta">Kreislaufwirtschaft entdecken →</a>
+            </div>
+        </section>
+
+        <!-- LÖSUNGEN – Prozess-Schritte -->
+        <section id="loesungen" class="home-section">
+            <div class="section-label">So arbeiten wir</div>
+            <h2 class="section-title">Unsere Lösungen</h2>
+            <p class="section-sub">Von der Strategie bis zur laufenden Optimierung – alles aus einer Hand.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">📊</div>
+                    <h3>Beratung</h3>
+                    <p>Individuelle Green-IT-Strategien, zugeschnitten auf Ihre Unternehmensziele und bestehende Infrastruktur.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">🛠️</div>
+                    <h3>Implementierung</h3>
+                    <p>Einbau energieeffizienter Technologien mit minimalen Ausfallzeiten und maximalem Wirkungsgrad.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">📈</div>
+                    <h3>Monitoring</h3>
+                    <p>Echtzeit-Tools zur Überwachung und kontinuierlichen Optimierung Ihres Energieverbrauchs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISION -->
+        <section id="visionen" class="home-section vision-section">
+            <div class="section-label">Zukunft</div>
+            <h2 class="section-title">Die Vision von Konvoltic</h2>
+            <p class="section-sub">Technologische Exzellenz und ökologische Verantwortung als ein System.</p>
+            <div class="vision-grid">
+                <div class="vision-item">
+                    <span class="vision-dot">🖥️</span>
+                    <div>
+                        <strong>Digitale Infrastruktur</strong>
+                        <p>Verteilte Serverstrukturen und virtuelle Systeme maximieren die Hardware-Auslastung.</p>
+                    </div>
+                </div>
+                <div class="vision-item">
+                    <span class="vision-dot">🔥</span>
+                    <div>
+                        <strong>Energie- & Wärmemanagement</strong>
+                        <p>Server-Abwärme wird direkt als erneuerbare Energiequelle für thermische Prozesse genutzt.</p>
+                    </div>
+                </div>
+                <div class="vision-item">
+                    <span class="vision-dot">💧</span>
+                    <div>
+                        <strong>Ressourceneffizienz</strong>
+                        <p>Ein geschlossener Kreislauf für Strom und Wärme minimiert den ökologischen Fußabdruck.</p>
+                    </div>
+                </div>
+                <div class="vision-item">
+                    <span class="vision-dot">🌱</span>
+                    <div>
+                        <strong>Nachhaltige Produktion</strong>
+                        <p>Ganzjähriger Pflanzenanbau durch Hydroponik und Vertical Farming – völlig unabhängig von Jahreszeiten.</p>
+                    </div>
+                </div>
+                <div class="vision-item">
+                    <span class="vision-dot">🏆</span>
+                    <div>
+                        <strong>Zielsetzung</strong>
+                        <p>CO₂-Neutralität und Stärkung der lokalen Wertschöpfung durch regionale Vermarktung.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUKTE – Showcase -->
+        <section id="produkte" class="home-section">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title">Unsere Produkte</h2>
+            <p class="section-sub">Vier Bereiche – ein gemeinsames Ziel: mehr Nachhaltigkeit.</p>
+            <div class="showcase-grid">
+                <a href="Produkte.html" class="showcase-card">
+                    <div class="showcase-emoji">🖥️</div>
+                    <div class="showcase-body">
+                        <h3>Server</h3>
+                        <p>Energieeffiziente Hardware für anspruchsvolle Workloads.</p>
+                    </div>
+                    <span class="showcase-arrow">→</span>
+                </a>
+                <a href="Produkte.html" class="showcase-card">
+                    <div class="showcase-emoji">☁️</div>
+                    <div class="showcase-body">
+                        <h3>Cloud</h3>
+                        <p>Skalierbare Lösungen mit grüner Infrastruktur.</p>
+                    </div>
+                    <span class="showcase-arrow">→</span>
+                </a>
+                <a href="Produkte.html" class="showcase-card">
+                    <div class="showcase-emoji">💼</div>
+                    <div class="showcase-body">
+                        <h3>Beratung</h3>
+                        <p>Strategische Green-IT-Planung für Ihr Unternehmen.</p>
+                    </div>
+                    <span class="showcase-arrow">→</span>
+                </a>
+                <a href="Produkte.html" class="showcase-card">
+                    <div class="showcase-emoji">🥬</div>
+                    <div class="showcase-body">
+                        <h3>Bio-Nahrung</h3>
+                        <p>Regional angebaute Hydroponik-Produkte direkt aus dem Rechenzentrum.</p>
+                    </div>
+                    <span class="showcase-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- GREEN IT CTA -->
+        <section id="greenit" class="greenit-cta">
+            <div class="greenit-text">
+                <div class="section-label light">Green IT</div>
+                <h2>Bereit für nachhaltige IT?</h2>
+                <p>Green IT ist der Kern unserer Identität. Wir fördern Lösungen, die wirtschaftlich sinnvoll und zugleich umweltfreundlich sind – für heute und morgen.</p>
+            </div>
+            <div class="greenit-actions">
+                <a href="Produkte.html" class="cta-btn">Zum Katalog</a>
+                <a href="Kreislauf.html" class="cta-btn-outline">Kreislauf ansehen</a>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="footer-content">
+         <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="Beratung.html">Beratung</a>
+                <a href="Impressum.html">Impressum</a>
+            </nav>
+         <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG<br>
+            Webdesign by Gerda Wagner: Konvoltic OG<br>
+            Alle Rechte vorbehalten. Alle Inhalte sind urheberrechtlich geschützt.</small></p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

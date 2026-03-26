@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konvoltic – Kreislaufwirtschaft</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="kreislauf.css">
+</head>
+
+<!-- alles über unseren umweltfreundlichen kreislauf -->
+<body>
+    <!-- menü oben -->
+            <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                 <ul class="dropdown-menu">
+                   <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo-container">
+            <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#server-abwaerme" class="nav-link">Server-Abwärme</a></li>
+                <li><a href="#wasserverwertung" class="nav-link">Wasserverwertung</a></li>
+                <li><a href="#kaskadennutzung" class="nav-link">Kaskadennutzung</a></li>
+                <li><a href="#hydroponik" class="nav-link">Hydroponik</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- der große einstiegsbereich für die kreislaufseite -->
+    <section class="kreislauf-hero">
+        <div class="kreislauf-hero-text">
+            <div class="kreislauf-hero-badge">♻️ Kreislaufwirtschaft</div>
+            <h1>Energie, die sich<br><span>selbst erneuert</span></h1>
+            <p>Bei Konvoltic nutzen wir die Abwärme unserer Server, um Gewächshäuser zu beheizen, Wasser
+                zurückzugewinnen und ganzjährig Lebensmittel anzubauen – ein geschlossener Kreislauf.</p>
+            <div class="kreislauf-hero-nav">
+                <a href="#server-abwaerme">🔥 Server-Abwärme</a>
+                <a href="#wasserverwertung">💧 Wasser</a>
+                <a href="#kaskadennutzung">♻️ Kaskade</a>
+                <a href="#hydroponik">🌱 Hydroponik</a>
+            </div>
+        </div>
+        <div class="kreislauf-hero-visual">
+            <div class="cycle-orb">
+                <span class="cycle-orb-inner">♻️</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- der kreislauf visualisiert als schritte: strom -> server -> wärme -> feld ->... -->
+    <div class="cycle-flow">
+        <div class="cycle-flow-title">So funktioniert unser Kreislauf</div>
+        <div class="cycle-steps">
+            <div class="cycle-step">
+                <div class="cycle-step-icon">⚡</div>
+                <div class="cycle-step-label">Strom­versorgung</div>
+            </div>
+            <div class="cycle-arrow">→</div>
+            <div class="cycle-step">
+                <div class="cycle-step-icon">🖥️</div>
+                <div class="cycle-step-label">Server­betrieb</div>
+            </div>
+            <div class="cycle-arrow">→</div>
+            <div class="cycle-step">
+                <div class="cycle-step-icon">🔥</div>
+                <div class="cycle-step-label">Abwärme­nutzung</div>
+            </div>
+            <div class="cycle-arrow">→</div>
+            <div class="cycle-step">
+                <div class="cycle-step-icon">🌿</div>
+                <div class="cycle-step-label">Gewächs­haus</div>
+            </div>
+            <div class="cycle-arrow">→</div>
+            <div class="cycle-step">
+                <div class="cycle-step-icon">💧</div>
+                <div class="cycle-step-label">Wasser­kreislauf</div>
+            </div>
+            <div class="cycle-arrow">→</div>
+            <div class="cycle-step">
+                <div class="cycle-step-icon">🥬</div>
+                <div class="cycle-step-label">Ernte & Vermarktung</div>
+            </div>
+            <div class="cycle-arrow">↺</div>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- einleitungstext, kurz und knapp -->
+        <div class="kreislauf-intro">
+            <div class="kreislauf-intro-icon">🌍</div>
+            <div>
+                <h2>Nachhaltige Produktion & Kreislaufwirtschaft</h2>
+                <p>Bei Konvoltic nutzen wir die Synergien zwischen High-Tech Servern und biologischem Anbau.
+                    Jede Kilowattstunde, die unsere Server verbrauchen, arbeitet zweimal – einmal für die IT, einmal für
+                    die Natur.</p>
+            </div>
+        </div>
+
+        <!-- abschnitt 1: serverhitze heizt das gewächshaus -->
+        <div id="server-abwaerme" class="kreislauf-section">
+            <div class="kreislauf-card">
+                <div class="kreislauf-card-body">
+                    <div class="kreislauf-card-eyebrow">
+                        <span class="kreislauf-card-number">01 / 04</span>
+                        <div class="kreislauf-card-icon-pill">🔥</div>
+                    </div>
+                    <h2>Server-Abwärme</h2>
+                    <p>Die bei der Datenverarbeitung entstehende Wärme wird direkt zur Beheizung unserer Gewächshäuser
+                        genutzt. So ermöglichen wir einen <strong>ganzjährigen Anbau</strong>, völlig unabhängig von den
+                        Jahreszeiten.</p>
+                    <span class="kreislauf-tag">✅ Bis zu 40 % Energieeinsparung</span>
+                </div>
+                <div class="kreislauf-card-image" style="background-image: url('Images/serverabwärme.png');"></div>
+            </div>
+        </div>
+
+        <!-- abschnitt 2: wasser wird wiederverwendet -->
+        <div id="wasserverwertung" class="kreislauf-section">
+            <div class="kreislauf-card reverse">
+                <div class="kreislauf-card-body">
+                    <div class="kreislauf-card-eyebrow">
+                        <span class="kreislauf-card-number">02 / 04</span>
+                        <div class="kreislauf-card-icon-pill">💧</div>
+                    </div>
+                    <h2>Wasserverwertung</h2>
+                    <p>Durch modernste Kondensationstechnologien gewinnen wir Feuchtigkeit aus der Luft zurück. Dieses
+                        Wasser wird gereinigt und dem System wieder zugeführt – ein vollständig geschlossener
+                        Wasserkreislauf.</p>
+                    <span class="kreislauf-tag">✅ Bis zu 90 % weniger Wasserverbrauch</span>
+                </div>
+                <div class="kreislauf-card-image" style="background-image: url('Images/wasserkreislauf.png');"></div>
+            </div>
+        </div>
+
+        <!-- abschnitt 3: energie mehrfach nutzen -->
+        <div id="kaskadennutzung" class="kreislauf-section">
+            <div class="kreislauf-card">
+                <div class="kreislauf-card-body">
+                    <div class="kreislauf-card-eyebrow">
+                        <span class="kreislauf-card-number">03 / 04</span>
+                        <div class="kreislauf-card-icon-pill">♻️</div>
+                    </div>
+                    <h2>Kaskadennutzung</h2>
+                    <p>Energie wird bei uns mehrfach genutzt: Erst für die IT, dann für die Wärme und schließlich für
+                        biologische Prozesse. Ein effizienter Stufenplan für maximale Ressourcenschonung.</p>
+                    <span class="kreislauf-tag">✅ 0 g CO₂ Netto-Ausstoß</span>
+                </div>
+                <div class="kreislauf-card-image" style="background-image: url('Images/kaskkadennutzun2.png');"></div>
+            </div>
+        </div>
+
+        <!-- abschnitt 4: pflanzenzucht ohne erde -->
+        <div id="hydroponik" class="kreislauf-section">
+            <div class="kreislauf-card reverse">
+                <div class="kreislauf-card-body">
+                    <div class="kreislauf-card-eyebrow">
+                        <span class="kreislauf-card-number">04 / 04</span>
+                        <div class="kreislauf-card-icon-pill">🌱</div>
+                    </div>
+                    <h2>Hydroponik / Vertical Farming</h2>
+                    <p>Wir setzen auf <strong>Premium-Qualität</strong> durch erdlosen Anbau. Das spart bis zu 90 %
+                        Wasser und schafft eine direkte Verbindung zur lokalen Wirtschaft.</p>
+                    <span class="kreislauf-tag">✅ Ganzjähriger Anbau, regional</span>
+                </div>
+                <div class="kreislauf-card-image" style="background-image: url('Images/aquaponic.png');"></div>
+            </div>
+        </div>
+
+        <!-- letzter bereich: zu produkten oder zurück zur startseite -->
+        <div class="kreislauf-cta">
+            <h2>Teil des Kreislaufs werden</h2>
+            <p>Entdecken Sie unsere nachhaltigen Produkte oder erfahren Sie mehr über unsere Green-IT-Lösungen.</p>
+            <div class="kreislauf-cta-btns">
+                <a href="Produkte.html" class="cta-btn">Zum Produktkatalog</a>
+                <a href="Website.html" class="cta-btn-outline">Zurück zur Startseite</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+           <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="Beratung.html">Beratung</a>
+                <a href="Impressum.html">Impressum</a>
+
+            </nav>
+            <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG<br>
+                    Webdesign by Gerda Wagner: Konvoltic OG<br>
+                    Alle Rechte vorbehalten. Alle Inhalte sind urheberrechtlich geschützt.</small></p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

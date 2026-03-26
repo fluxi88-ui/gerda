@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Konvoltic OG | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo-container">
+            <a href="Website.html">
+                <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
+            </a>
+        </div>
+    </header>
+
+    <main class="login-page">
+        <div class="login-card">
+            <div class="login-icon">🔐</div>
+            <h1>Anmelden</h1>
+            <p class="login-sub">Willkommen zurück bei Konvoltic OG</p>
+
+    <!-- Fehlermeldung – wird per JavaScript aus der URL (?error=1) eingeblendet -->
+            <div class="login-error" id="login-error" style="display:none;"></div>
+
+            <script>
+                const params = new URLSearchParams(window.location.search);
+                const err = params.get('error');
+                if (err) {
+                    const box = document.getElementById('login-error');
+                    box.textContent = err === '2'
+                        ? '⚠️ Datenbankfehler. Bitte später erneut versuchen.'
+                        : '⚠️ Ungültiger Benutzername oder Passwort.';
+                    box.style.display = 'block';
+                }
+            </script>
+
+            <form method="post" action="login.php" class="login-form">
+                <div class="login-group">
+                    <label for="username">Benutzername</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Benutzername eingeben"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+                <div class="login-group">
+                    <label for="password">Passwort</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Passwort eingeben"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                <button type="submit" class="login-submit">Anmelden</button>
+            </form>
+
+            <p class="login-register-hint">
+                Noch kein Konto? <a href="registrierung_form.php">Jetzt registrieren →</a>
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <nav class="footer-nav">
+                <a href="Website.html">Home</a>
+                <a href="Impressum.html">Impressum</a>
+            </nav>
+            <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG</small></p>
+        </div>
+    </footer>
+
+
+</body>
+</html>

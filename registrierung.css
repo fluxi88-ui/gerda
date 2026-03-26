@@ -1,0 +1,166 @@
+/* =============================================
+   Konvoltic OG – registrierung.css
+   Styles nur für Registrierung.html (Formular)
+   =============================================
+   → bestimmt für: Registrierung.html
+   ============================================= */
+
+/* --- Seiten-Layout --- */
+/* → Registrierung.html – <div class="form-page"> (Hülle für das gesamte Formular) */
+.form-page {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+}
+
+.fehler-box {
+    background: #fdecea;
+    border: 1px solid #e74c3c;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #c0392b;
+}
+
+.fehler-box p {
+    margin: 0;
+}
+
+.form-page h1 {
+    font-size: 28px;
+    color: #1b5e20;
+    margin-bottom: 8px;
+}
+
+.form-page p.form-intro {
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* --- Formular-Abschnitte --- */
+/* → Registrierung.html – <fieldset> und <legend> Elemente */
+fieldset {
+    border: 2px solid #c8e6c9;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: white;
+}
+
+legend {
+    font-weight: bold;
+    color: #1b5e20;
+    font-size: 17px;
+    padding: 0 8px;
+}
+
+/* --- Formularfelder --- */
+/* → Registrierung.html – <div class="form-group"> mit <label>, <input>, <select> */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 15px;
+    background-color: #fafafa;
+    font-family: Arial, sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2e7d32;
+    outline: none;
+    background-color: #f1f8e9;
+}
+
+/* --- Radio-Buttons --- */
+/* → Registrierung.html – <div class="radio-group"> mit <label> und <input type="radio"> */
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* --- Schaltflächen --- */
+/* → Registrierung.html – <div class="form-buttons"> mit .btn-submit und .btn-reset */
+.form-buttons {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-submit {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1b5e20;
+}
+
+.btn-reset {
+    background-color: #eee;
+    color: #444;
+    border: 1px solid #ccc;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-reset:hover {
+    background-color: #ddd;
+}
+
+/* --- Passwort-Fehlerhinweis --- */
+.pw-fehler {
+    color: #c62828;
+    font-size: 13px;
+    margin-top: 4px;
+    min-height: 18px;
+}
+
+/* --- Pflichtfeld-Hinweis --- */
+.pflicht-hinweis {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* --- Datei-Upload --- */
+.form-group input[type="file"] {
+    padding: 6px 4px;
+    background-color: #fafafa;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}

@@ -1,0 +1,273 @@
+/* nur für die kreislaufseite - viel grün, viel natur */
+/* → nur verwendet in: Kreislauf.html */
+
+/* hintergrundbild auch hier, passt zum thema */
+/* → Kreislauf.html – <body> */
+
+body {
+    background-image: url('Images/Gemini_Generated_Image_63ugcn63ugcn63ug.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: color-burn;
+    background-color: rgba(238, 244, 236, 0.573);
+}
+
+/* der große bereich ganz oben auf der kreislaufseite */
+/* → Kreislauf.html – <section class="kreislauf-hero"> */
+.kreislauf-hero {
+    background-color: #e8f5e9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 40px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* → Kreislauf.html – <div class="kreislauf-hero-badge"> in .kreislauf-hero */
+.kreislauf-hero-badge {
+    background-color: #a5d6a7;
+    color: #1b5e20;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.kreislauf-hero-text h1 {
+    font-size: 34px;
+    color: #1b5e20;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.kreislauf-hero-text h1 span {
+    color: #4caf50;
+}
+
+.kreislauf-hero-text p {
+    color: #444;
+    max-width: 520px;
+    margin-bottom: 20px;
+}
+
+/* → Kreislauf.html – <div class="kreislauf-hero-nav"> (die 4 Sprung-Links im Hero) */
+.kreislauf-hero-nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.kreislauf-hero-nav a {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.kreislauf-hero-nav a:hover {
+    background-color: #1b5e20;
+    text-decoration: none;
+}
+
+/* → Kreislauf.html – <div class="cycle-orb"> und <span class="cycle-orb-inner"> in .kreislauf-hero-visual */
+.cycle-orb {
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cycle-orb-inner {
+    font-size: 60px;
+}
+
+/* die schrittfolge wie der kreislauf funktioniert, sieht gut aus */
+/* → Kreislauf.html – <div class="cycle-flow"> (Diagramm: Strom → Server → Wärme ...) */
+.cycle-flow {
+    background-color: #f1f8e9;
+    padding: 28px 20px;
+    text-align: center;
+    border-top: 2px solid #c8e6c9;
+    border-bottom: 2px solid #c8e6c9;
+}
+
+.cycle-flow-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #2e7d32;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cycle-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cycle-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.cycle-step-icon {
+    font-size: 28px;
+    background-color: white;
+    border: 2px solid #c8e6c9;
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cycle-step-label {
+    font-size: 12px;
+    color: #444;
+    max-width: 70px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.cycle-arrow {
+    font-size: 22px;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* der einleitungstext mit dem grünen rand links */
+/* → Kreislauf.html – <div class="kreislauf-intro"> in <main class="container"> */
+.kreislauf-intro {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background-color: #f9fbe7;
+    border-left: 5px solid #4caf50;
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.kreislauf-intro-icon {
+    font-size: 40px;
+    flex-shrink: 0;
+}
+
+.kreislauf-intro h2 {
+    color: #1b5e20;
+    margin-bottom: 8px;
+    font-size: 22px;
+}
+
+/* die karten mit bild rechts oder links abwechselnd */
+/* → Kreislauf.html – <div class="kreislauf-section" id="server-abwaerme|wasserverwertung|kaskadennutzung|hydroponik"> */
+.kreislauf-section {
+    margin-bottom: 36px;
+}
+
+.kreislauf-card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    min-height: 200px;
+}
+
+.kreislauf-card.reverse {
+    flex-direction: row-reverse;
+}
+
+.kreislauf-card-body {
+    flex: 1;
+    padding: 28px;
+}
+
+.kreislauf-card-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.kreislauf-card-number {
+    font-size: 13px;
+    color: #888;
+    font-weight: bold;
+}
+
+.kreislauf-card-icon-pill {
+    font-size: 20px;
+    background-color: #e8f5e9;
+    border-radius: 20px;
+    padding: 4px 12px;
+}
+
+.kreislauf-card-body h2 {
+    font-size: 22px;
+    color: #1b5e20;
+    margin-bottom: 10px;
+}
+
+.kreislauf-card-body p {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+.kreislauf-tag {
+    display: inline-block;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.kreislauf-card-image {
+    width: 220px;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: #c8e6c9;
+}
+
+/* der abschlussbereich mit den zwei buttons zum weiterklicken */
+/* → Kreislauf.html – <div class="kreislauf-cta"> am Ende von <main> */
+.kreislauf-cta {
+    background-color: #1b5e20;
+    color: white;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.kreislauf-cta h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.kreislauf-cta p {
+    margin-bottom: 24px;
+    opacity: 0.9;
+}
+
+.kreislauf-cta-btns {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}

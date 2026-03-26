@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konvoltic – Lösungen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="loesungen.css">
+</head>
+
+<!-- lösungen für firmen und privatleute -->
+<body>
+
+   <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="logo-container">
+            <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
+        </div>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#unternehmen" class="nav-link">Unternehmen</a></li>
+                <li><a href="#privatperson" class="nav-link">Privatperson</a></li>
+                <li><a href="#individuell" class="nav-link">Individuelle Lösungen</a></li>
+            </ul>
+        </nav>
+        </header>
+    <!-- der große einstiegsbereich -->
+    <section class="loesungen-hero">
+        <div class="loesungen-hero-text">
+            <span class="loesungen-badge">🔧 Unsere Lösungen</span>
+            <h1>Nachhaltige IT-Lösungen<br><span>für jeden Bedarf</span></h1>
+            <p>Von der firmeneigenen Server-Infrastruktur bis zur smarten Heimlösung – wir entwickeln maßgeschneiderte Green-IT-Konzepte, die Kosten senken und die Umwelt schonen.</p>
+            <div class="loesungen-hero-nav">
+                <a href="#unternehmen">🏢 Unternehmen</a>
+                <a href="#privatperson">🏠 Privatperson</a>
+                <a href="#individuell">✨ Individuell</a>
+            </div>
+        </div>
+        <div class="loesungen-hero-visual">
+            <div class="loesungen-orb">
+                <span class="loesungen-orb-inner">🔧</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- die zahlen die zeigen wie gut wir sind -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number">200<span class="stat-unit">+</span></span>
+            <span class="stat-label">Umgesetzte Projekte</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">98<span class="stat-unit">%</span></span>
+            <span class="stat-label">Kundenzufriedenheit</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">40<span class="stat-unit">%</span></span>
+            <span class="stat-label">Ø Energieeinsparung</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-number">12<span class="stat-unit"> Jahre</span></span>
+            <span class="stat-label">Erfahrung</span>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- lösungen für firmen - 6 karten mit verschiedenen produkten -->
+        <section id="unternehmen" class="loesungen-block">
+            <div class="loesungen-block-header">
+                <span class="section-label">Für Unternehmen</span>
+                <h2 class="section-title">Enterprise Green-IT</h2>
+                <p class="section-sub">Skalierbare IT-Infrastruktur, die Ihrem Unternehmen hilft, Energiekosten zu senken und ESG-Ziele zu erreichen.</p>
+            </div>
+            <div class="sol-grid">
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🖥️</div>
+                        <span class="sol-badge neu">Beliebt</span>
+                    </div>
+                    <h3>Server-Leasing</h3>
+                    <p>Energieeffiziente Unternehmensserver auf Mietbasis – neueste Hardware, keine Kapitalbindung, inklusive Wartung und Green-Zertifikat.</p>
+                    <ul class="sol-features">
+                        <li>✔ Bis zu 45 % weniger Stromkosten</li>
+                        <li>✔ Hardware-Tausch alle 3 Jahre</li>
+                        <li>✔ 24/7 Monitoring inklusive</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">☁️</div>
+                        <span class="sol-badge eco">Eco</span>
+                    </div>
+                    <h3>Cloud-Migration</h3>
+                    <p>Wir migrieren Ihre On-Premise-Infrastruktur zu 100 % erneuerbaren Cloud-Rechenzentren und optimieren dabei die Architektur.</p>
+                    <ul class="sol-features">
+                        <li>✔ Grüne Cloud-Anbieter geprüft</li>
+                        <li>✔ Zero-Downtime Migration</li>
+                        <li>✔ DSGVO-konformes Datenmgmt.</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">⚡</div>
+                    </div>
+                    <h3>Energie-Audit</h3>
+                    <p>Detaillierte Analyse des IT-Energieverbrauchs Ihres Unternehmens inklusive Maßnahmenplan, ROI-Kalkulation und Zertifizierungsunterstützung.</p>
+                    <ul class="sol-features">
+                        <li>✔ ISO 50001-konform</li>
+                        <li>✔ Detaillierter Maßnahmenplan</li>
+                        <li>✔ Fördermittelberatung</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🔄</div>
+                        <span class="sol-badge eco">Eco</span>
+                    </div>
+                    <h3>IT-Kreislauf</h3>
+                    <p>Zertifizierte Aufbereitung und Wiedereinsatz ausgedienter Hardware. Datensichere Entsorgung nach BSI-Standard für alle nicht mehr nutzbaren Geräte.</p>
+                    <ul class="sol-features">
+                        <li>✔ Datenlöschung nach DIN 66399</li>
+                        <li>✔ Verwertungsnachweis</li>
+                        <li>✔ Aufbereitungsquote &gt; 90 %</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🛡️</div>
+                    </div>
+                    <h3>Green Security</h3>
+                    <p>Energieeffiziente Cybersicherheitslösungen – moderne Firewalls und SIEM-Systeme mit minimalem Energiefußabdruck und maximaler Schutzwirkung.</p>
+                    <ul class="sol-features">
+                        <li>✔ SOC-as-a-Service</li>
+                        <li>✔ 60 % weniger Energie als Legacy</li>
+                        <li>✔ NIS2-konform</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">📊</div>
+                        <span class="sol-badge neu">Neu</span>
+                    </div>
+                    <h3>CO₂-Reporting</h3>
+                    <p>Automatisierte Erfassung und Visualisierung des CO₂-Fußabdrucks Ihrer gesamten IT-Infrastruktur. Berichte für ESG-Reporting und Nachhaltigkeitsberichte auf Knopfdruck.</p>
+                    <ul class="sol-features">
+                        <li>✔ CSRD-ready Berichte</li>
+                        <li>✔ Echtzeit-Dashboard</li>
+                        <li>✔ API zu ERP/BI-Systemen</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- lösungen für zuhause - für normale menschen -->
+        <section id="privatperson" class="loesungen-block">
+            <div class="loesungen-block-header">
+                <span class="section-label">Für Privatpersonen</span>
+                <h2 class="section-title">Smart Home & privates Green-IT</h2>
+                <p class="section-sub">Nachhaltige Technologie für Ihr Zuhause – sparsam, sicher und wirklich einfach nutzbar.</p>
+            </div>
+            <div class="sol-grid">
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🏠</div>
+                        <span class="sol-badge neu">Beliebt</span>
+                    </div>
+                    <h3>Home-Server</h3>
+                    <p>Ihr eigener stromsparender Heimserver – Fotos, Videos und Dokumente sicher zu Hause speichern, ohne Monatsgebühren für Cloud-Dienste.</p>
+                    <ul class="sol-features">
+                        <li>✔ Ab 5 W Stromverbrauch</li>
+                        <li>✔ Einfache Einrichtung</li>
+                        <li>✔ Remote-Zugriff inklusive</li>
+                    </ul>
+                    <a href="Produkte.html" class="sol-btn">Produkte ansehen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">💡</div>
+                        <span class="sol-badge eco">Eco</span>
+                    </div>
+                    <h3>Smart-Home-Energie</h3>
+                    <p>Intelligente Steuerung von Verbrauchern, Photovoltaik und Speicher – spart durchschnittlich 25 % Stromkosten im ersten Jahr.</p>
+                    <ul class="sol-features">
+                        <li>✔ KNX & Matter kompatibel</li>
+                        <li>✔ PV-Eigenverbrauchsoptimierung</li>
+                        <li>✔ App-Steuerung</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">📱</div>
+                    </div>
+                    <h3>Device-Recycling</h3>
+                    <p>Altes Gerät einsenden, Gutschein erhalten. Wir prüfen, reparieren oder recyceln Ihr Altgerät zertifiziert und schicken Ihnen einen Wertgutschein.</p>
+                    <ul class="sol-features">
+                        <li>✔ Kostenloser Einsende-Label</li>
+                        <li>✔ Bewertung innerhalb 48 h</li>
+                        <li>✔ Gutschein bis 200 €</li>
+                    </ul>
+                    <a href="Produkte.html" class="sol-btn">Jetzt einsenden →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🎓</div>
+                    </div>
+                    <h3>IT-Schulung</h3>
+                    <p>Online- und Präsenz-Workshops für nachhaltigen Umgang mit Technik: Reparieren statt wegwerfen, Datensicherheit und Energiesparen im Alltag.</p>
+                    <ul class="sol-features">
+                        <li>✔ Anfänger- & Fortgeschrittene</li>
+                        <li>✔ Kleine Gruppen (max. 8 P.)</li>
+                        <li>✔ Zertifikat nach Abschluss</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Kurs buchen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🔋</div>
+                        <span class="sol-badge neu">Neu</span>
+                    </div>
+                    <h3>Akku-Service</h3>
+                    <p>Professioneller Akkutausch für Smartphones, Laptops und Tablets – statt Neukauf. Bis zu 80 % günstigerer CO₂-Fußabdruck gegenüber einem neuen Gerät.</p>
+                    <ul class="sol-features">
+                        <li>✔ Express-Service ab 24 h</li>
+                        <li>✔ Alle gängigen Marken</li>
+                        <li>✔ 2 Jahre Garantie</li>
+                    </ul>
+                    <a href="Produkte.html" class="sol-btn">Termin buchen →</a>
+                </div>
+                <div class="sol-card">
+                    <div class="sol-card-top">
+                        <div class="sol-icon">🌱</div>
+                        <span class="sol-badge eco">Eco</span>
+                    </div>
+                    <h3>Ökostrom-Bundle</h3>
+                    <p>Grüner Strom direkt aus heimischen Erneuerbaren, kombiniert mit einem Smart-Meter zur genauen Verbrauchsanalyse – alles aus einer Hand.</p>
+                    <ul class="sol-features">
+                        <li>✔ 100 % erneuerbare Energie</li>
+                        <li>✔ Smart-Meter inklusive</li>
+                        <li>✔ Monatliche Verbrauchsberichte</li>
+                    </ul>
+                    <a href="Beratung.html" class="sol-btn">Angebot anfragen →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- maßgeschneiderte lösungen in 5 schritten erklärt -->
+        <section id="individuell" class="loesungen-block">
+            <div class="loesungen-block-header">
+                <span class="section-label">Maßgeschneidert</span>
+                <h2 class="section-title">Individuelle Lösungen</h2>
+                <p class="section-sub">Kein Standard-Paket passt? Wir entwickeln gemeinsam mit Ihnen die perfekte Lösung – in fünf klaren Schritten.</p>
+            </div>
+
+            <div class="sol-process">
+                <div class="sol-process-step">
+                    <div class="sol-process-icon">💬</div>
+                    <div class="sol-process-num">01</div>
+                    <h3>Erstgespräch</h3>
+                    <p>Kostenloses 30-Minuten-Gespräch – wir hören zu und verstehen Ihre Situation, Ziele und Einschränkungen.</p>
+                </div>
+                <div class="sol-process-arrow">→</div>
+                <div class="sol-process-step">
+                    <div class="sol-process-icon">🔍</div>
+                    <div class="sol-process-num">02</div>
+                    <h3>Analyse</h3>
+                    <p>Detaillierte Bestandsaufnahme Ihrer aktuellen IT-Infrastruktur und Identifikation von Optimierungspotenzialen.</p>
+                </div>
+                <div class="sol-process-arrow">→</div>
+                <div class="sol-process-step">
+                    <div class="sol-process-icon">📐</div>
+                    <div class="sol-process-num">03</div>
+                    <h3>Konzept</h3>
+                    <p>Maßgeschneidertes Lösungskonzept mit Zeitplan, Budget und messbaren Nachhaltigkeitszielen.</p>
+                </div>
+                <div class="sol-process-arrow">→</div>
+                <div class="sol-process-step">
+                    <div class="sol-process-icon">🚀</div>
+                    <div class="sol-process-num">04</div>
+                    <h3>Umsetzung</h3>
+                    <p>Agile Implementierung durch unser zertifiziertes Team – transparent, termingerecht und sauber dokumentiert.</p>
+                </div>
+                <div class="sol-process-arrow">→</div>
+                <div class="sol-process-step">
+                    <div class="sol-process-icon">🤝</div>
+                    <div class="sol-process-num">05</div>
+                    <h3>Betreuung</h3>
+                    <p>Langfristige Partnerschaft mit regelmäßigen Reviews, Optimierungen und persönlichem Ansprechpartner.</p>
+                </div>
+            </div>
+
+            <div class="sol-individual-cta">
+                <div class="sol-individual-cta-text">
+                    <h3>Ihr Projekt ist einzigartig – Ihre Lösung auch.</h3>
+                    <p>Erzählen Sie uns von Ihrem Vorhaben. Wir melden uns innerhalb von 24 Stunden mit ersten Ideen.</p>
+                </div>
+                <a href="Beratung.html" class="cta-btn">Kostenlos beraten lassen →</a>
+            </div>
+        </section>
+
+    </main>
+        <footer>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="Beratung.html">Beratung</a>
+                <a href="Impressum.html">Impressum</a>
+            </nav>
+                <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG<br>
+            Webdesign by Gerda Wagner: Konvoltic OG<br>
+            Alle Rechte vorbehalten. Alle Inhalte sind urheberrechtlich geschützt.</small></p>
+            </div>
+        </footer>
+
+        </body>
+        
+        </html>

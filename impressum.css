@@ -1,0 +1,266 @@
+/* nur für das impressum - kein hintergrundbild, das macht der regenbogen schon selbst */
+/* → nur verwendet in: Impressum.html */
+
+/* der hintergrund bewegt sich in regenbogenfarben, sehr dezent */
+/* → Impressum.html – <div class="impressum-page"> (hüllt den gesamten Inhalt ein) */
+.impressum-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg,
+            #ff6b6b, #ff9f43, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
+    background-size: 400% 400%;
+    animation: rainbowBg 8s ease infinite;
+}
+
+@keyframes rainbowBg {
+    /* anfang - der regenbogen startet links */
+    0% {
+        background-position: 0% 50%;
+    }
+
+    /* mitte - jetzt ist er ganz rechts angekommen */
+    50% {
+        background-position: 100% 50%;
+    }
+
+    /* ende - zurück zum start, läuft dann wieder von vorne */
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* der wrapper für den ganzen impressum-inhalt */
+/* → Impressum.html – <div class="impressum-wrap"> innerhalb von .impressum-page */
+.impressum-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+}
+
+/* der titel "impressum" mit buntem regenbogentext */
+/* → Impressum.html – <div class="impressum-title"> mit dem ✨ Impressum ✨ Überschrift */
+.impressum-title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.impressum-title h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(90deg,
+            #ff6b6b, #ff9f43, #feca57, #1dd1a1, #48dbfb, #54a0ff, #c170f7, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200%;
+    animation: rainbowText 3s linear infinite;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .2));
+}
+
+@keyframes rainbowText {
+    /* startet ganz vorne im verlauf */
+    0% {
+        background-position: 0%;
+    }
+
+    /* schiebt den verlauf durch - so wirkt's als würde der text fließen */
+    100% {
+        background-position: 200%;
+    }
+}
+
+.impressum-title p {
+    color: rgba(255, 255, 255, .95);
+    font-weight: 600;
+    font-size: 1rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+    margin-top: 8px;
+}
+
+/* das einhorn läuft von links nach rechts und zurück, endlos */
+/* → Impressum.html – <div class="unicorn-stage"> mit .rainbow-trail und .unicorn */
+.unicorn-stage {
+    position: relative;
+    height: 130px;
+    margin: 28px 0 32px;
+    overflow: hidden;
+}
+
+.rainbow-trail {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 10px;
+    border-radius: 5px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg,
+            #ff6b6b, #ff9f43, #feca57, #1dd1a1, #48dbfb, #54a0ff, #c170f7);
+    opacity: 0.7;
+    box-shadow: 0 0 20px rgba(255, 255, 255, .5);
+}
+
+.unicorn {
+    position: absolute;
+    font-size: 5.5rem;
+    line-height: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: unicornRide 6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, .2));
+}
+
+@keyframes unicornRide {
+    /* einhorn kommt von links rein, schaut nach rechts */
+    0% {
+        left: -12%;
+        transform: translateY(-50%) scaleX(1);
+    }
+
+    /* kurz vor der mitte macht es eine kurve nach oben */
+    42% {
+        left: 42%;
+        transform: translateY(-80%) scaleX(1);
+    }
+
+    /* genau in der mitte - dreht sich um (scaleX(-1) spiegelt es) */
+    50% {
+        left: 50%;
+        transform: translateY(-80%) scaleX(-1);
+    }
+
+    /* fliegt nach rechts raus, schaut jetzt nach links */
+    92% {
+        left: 110%;
+        transform: translateY(-50%) scaleX(-1);
+    }
+
+    /* teleport zurück nach links - hop, niemand hat's gemerkt */
+    93% {
+        left: -12%;
+        transform: translateY(-50%) scaleX(1);
+    }
+
+    /* kurz warten, dann geht's wieder von vorne los */
+    100% {
+        left: -12%;
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+/* die sternchen die so ein bisschen blinken */
+/* → Impressum.html – <div class="stars"> (🌟 💫 ⭐ Emoji-Zeile) */
+.stars {
+    text-align: center;
+    font-size: 1.8rem;
+    letter-spacing: 8px;
+    margin-bottom: 30px;
+    animation: starPulse 2s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+    /* voll sichtbar und normale größe - die sterne leuchten */
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* in der mitte werden sie etwas größer und blasser - wie echtes blinken */
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* die weißen karten mit glaseffekt - sieht teuer aus */
+/* → Impressum.html – <div class="impressum-card"> (6 Karten: ECG, Person, Kontakt, Register, Gegenstand, Haftung) */
+.impressum-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px 36px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .13);
+    border-top: 5px solid transparent;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.impressum-card:hover {
+    transform: translateY(-5px) rotate(0.4deg);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, .18);
+}
+
+.impressum-card:nth-child(1) {
+    border-top-color: #ff6b6b;
+}
+
+.impressum-card:nth-child(2) {
+    border-top-color: #ff9f43;
+}
+
+.impressum-card:nth-child(3) {
+    border-top-color: #feca57;
+}
+
+.impressum-card:nth-child(4) {
+    border-top-color: #1dd1a1;
+}
+
+.impressum-card:nth-child(5) {
+    border-top-color: #54a0ff;
+}
+
+.impressum-card:nth-child(6) {
+    border-top-color: #c170f7;
+}
+
+.impressum-card h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* der regenbogen-trennstrich zwischen Überschrift und text */
+/* → Impressum.html – <div class="rainbow-divider"> in jeder .impressum-card */
+.rainbow-divider {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg,
+            #ff6b6b, #ff9f43, #feca57, #1dd1a1, #48dbfb, #54a0ff, #c170f7);
+    margin-bottom: 16px;
+}
+
+.impressum-card p,
+.impressum-card address {
+    font-style: normal;
+    color: #555;
+    font-size: 0.93rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.impressum-card a {
+    color: #5f27cd;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.impressum-card a:hover {
+    text-decoration: underline;
+}
+
+/* kleine notiz ganz unten in der impressum-seite */
+/* → Impressum.html – <div class="impressum-footer-note"> (🦄 Mit Liebe & Magie...) */
+.impressum-footer-note {
+    text-align: center;
+    color: rgba(255, 255, 255, .95);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+    margin-top: 14px;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konvoltic – Impressum 🦄</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="impressum.css">
+    
+</head>
+
+<body>
+
+    <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="impressum-page">
+        <div class="impressum-wrap">
+
+            <div class="impressum-title">
+                <h1>✨ Impressum ✨</h1>
+                <p>Rechtliche Angaben der Konvoltic OG – mit ganz viel Liebe &amp; Magie 🌈</p>
+            </div>
+
+            <div class="unicorn-stage">
+                <div class="rainbow-trail"></div>
+                <div class="unicorn">🦄</div>
+            </div>
+
+            <div class="stars">🌟 💫 ⭐ 💫 🌟</div>
+
+            <div class="impressum-card">
+                <h2>🏢 Angaben gemäß § 5 ECG</h2>
+                <div class="rainbow-divider"></div>
+                <address>
+                    <strong>Konvoltic OG</strong><br>
+                    Regenbogeneinhornstraße 42<br>
+                    4020 Linz<br>
+                    Österreich
+                </address>
+            </div>
+
+            <div class="impressum-card">
+                <h2>👤 Vertretungsberechtigte Person</h2>
+                <div class="rainbow-divider"></div>
+                <p>
+                    GeschäftsführerIn &amp; Chief Unicorn Officer 🦄<br>
+                    <strong>Gerda Wagner</strong><br>
+
+                    <strong>Leon Oswald</strong>&amp;<br>
+
+                    <strong>Christoph Oberholzer</strong><br>
+
+                </p>
+            </div>
+
+            <div class="impressum-card">
+                <h2>📬 Kontakt</h2>
+                <div class="rainbow-divider"></div>
+                <p>
+                    Telefon: <strong>+43 732 123456</strong><br>
+                    E-Mail: <a href="mailto:office@konvoltic.at">office@konvoltic.at</a><br>
+                    Website: <a href="Website.html">www.konvoltic.at</a>
+                </p>
+            </div>
+
+            <div class="impressum-card">
+                <h2>🏛️ Unternehmensregister</h2>
+                <div class="rainbow-divider"></div>
+                <p>
+                    Rechtsform: Offene Gesellschaft (OG)<br>
+                    Firmenbuchnummer: FN 123456 g<br>
+                    Firmenbuchgericht: Landesgericht Linz<br>
+                    UID-Nummer: ATU12345678
+                </p>
+            </div>
+
+            <div class="impressum-card">
+                <h2>🌱 Unternehmensgegenstand</h2>
+                <div class="rainbow-divider"></div>
+                <p>
+                    Nachhaltige IT-Lösungen, Green Server, Cloud-Dienste,<br>
+                    Kreislaufwirtschaft und ökologischer Anbau durch Hydroponik.<br>
+                    Wir retten die Welt – eine Kilowattstunde nach der anderen. ♻️
+                </p>
+            </div>
+
+            <div class="impressum-card">
+                <h2>⚖️ Haftungsausschluss</h2>
+                <div class="rainbow-divider"></div>
+                <p>
+                    Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung
+                    für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind
+                    ausschließlich deren Betreiber verantwortlich.<br><br>
+                    Für etwaige Regenbogen-bedingte Schäden durch übermäßige Fröhlichkeit
+                    übernehmen wir ebenfalls keine Haftung. 🌈
+                </p>
+            </div>
+
+            <div class="impressum-footer-note">
+                🦄 Mit Liebe &amp; Magie gemacht · © 2026 Konvoltic OG · Alle Regenbögen vorbehalten 🌈
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="Beratung.html">Beratung</a>
+                <a href="Impressum.html">Impressum</a>
+            </nav>
+            <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG<br>
+            Webdesign by Gerda Wagner: Konvoltic OG<br>
+            Alle Rechte vorbehalten. Alle Inhalte sind urheberrechtlich geschützt.</small></p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

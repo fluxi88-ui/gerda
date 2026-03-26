@@ -1,0 +1,140 @@
+/* nur für den produktkatalog - hier gibt's alles zu kaufen */
+/* → nur verwendet in: Produkte.html */
+
+/* auch hier das hintergrundbild, damit's einheitlich ist */
+/* → Produkte.html – <body> */
+
+body {
+    background-image: url('Images/Gemini_Generated_Image_63ugcn63ugcn63ug.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: color-burn;
+    background-color: rgba(238, 244, 236, 0.573);
+}
+
+/* der grüne bereich mit dem seitentitel */
+/* → Produkte.html – <div class="catalog-hero"> */
+.catalog-hero {
+    background-color: #e8f5e9;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.catalog-hero h1 {
+    font-size: 34px;
+    color: #1b5e20;
+    margin-bottom: 10px;
+}
+
+.catalog-hero p {
+    color: #555;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* überschriften für server, cloud usw. */
+/* → Produkte.html – <h2 class="category-title" id="server|cloud|beratung|bio"> */
+.category-title {
+    font-size: 22px;
+    color: #1b5e20;
+    margin: 30px 0 16px;
+    border-bottom: 2px solid #c8e6c9;
+    padding-bottom: 8px;
+}
+
+/* das raster mit allen produktkarten nebeneinander */
+/* → Produkte.html – <div class="catalog-grid"> für jede Produktkategorie */
+.catalog-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+/* → Produkte.html – <div class="catalog-card"> für jedes einzelne Produkt */
+.catalog-card {
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* was in der karte drin ist - emoji, text, preis */
+/* → Produkte.html – <div class="card-image">, <span class="card-badge">, <div class="card-body">, <div class="card-footer"> */
+.card-image {
+    font-size: 48px;
+    text-align: center;
+    padding: 14px 0;
+    position: relative;
+}
+
+.card-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 10px;
+}
+
+.card-body {
+    flex: 1;
+    padding: 8px 0;
+}
+
+.card-body h3 {
+    color: #1b5e20;
+    margin-bottom: 6px;
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tag {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 10px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+.card-price {
+    font-weight: bold;
+    color: #1b5e20;
+}
+
+.card-price span {
+    font-weight: normal;
+    font-size: 13px;
+    color: #777;
+}
+
+.card-btn {
+    background-color: #2e7d32;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.card-btn:hover {
+    background-color: #1b5e20;
+    text-decoration: none;
+}

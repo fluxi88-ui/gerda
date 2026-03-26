@@ -1,0 +1,211 @@
+/* nur für die lösungsseite - für unternehmen und privatpersonen */
+/* → nur verwendet in: Loesungen.html */
+
+/* hintergrundbild, wie auf allen anderen seiten auch */
+/* → Loesungen.html – <body> */
+
+body {
+    background-image: url('Images/Gemini_Generated_Image_63ugcn63ugcn63ug.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: color-burn;
+    background-color: rgba(238, 244, 236, 0.573);
+}
+
+/* der große bereich ganz oben */
+/* → Loesungen.html – <section class="loesungen-hero"> */
+.loesungen-hero {
+    background-color: #e8f5e9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 40px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* → Loesungen.html – <span class="loesungen-badge"> im Hero */
+.loesungen-badge {
+    background-color: #a5d6a7;
+    color: #1b5e20;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.loesungen-hero-text h1 {
+    font-size: 34px;
+    color: #1b5e20;
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.loesungen-hero-text h1 span {
+    color: #4caf50;
+}
+
+.loesungen-hero-text p {
+    color: #444;
+    max-width: 520px;
+    margin-bottom: 20px;
+}
+
+.loesungen-hero-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.loesungen-hero-nav a {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.loesungen-hero-nav a:hover {
+    background-color: #1b5e20;
+    text-decoration: none;
+}
+
+/* → Loesungen.html – <div class="loesungen-orb"> und <span class="loesungen-orb-inner"> in .loesungen-hero-visual */
+.loesungen-orb {
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loesungen-orb-inner {
+    font-size: 60px;
+}
+
+/* ein lösungsblock - unternehmen oder privat - hat mehrere karten */
+/* → Loesungen.html – <section class="loesungen-block" id="unternehmen|privatperson|individuell"> */
+.loesungen-block {
+    margin-bottom: 60px;
+}
+
+.loesungen-block-header {
+    margin-bottom: 28px;
+}
+
+/* die karten im raster, weich abgerundete ecken */
+/* → Loesungen.html – <div class="sol-grid"> und <div class="sol-card"> in den loesungen-blocks */
+.sol-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.sol-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    flex: 1;
+    min-width: 240px;
+}
+
+.sol-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.sol-card h3 {
+    color: #1b5e20;
+    margin-bottom: 8px;
+}
+
+.sol-card p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.sol-features {
+    list-style: none;
+    margin-top: 12px;
+}
+
+.sol-features li {
+    font-size: 13px;
+    color: #555;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.sol-features li::before {
+    content: "✓ ";
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* die fünf schritte für individuelle lösungen mit pfeilen dazwischen */
+/* → Loesungen.html – <div class="sol-process"> in <section id="individuell"> */
+.sol-process {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+}
+
+.sol-process-step {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+}
+
+.sol-process-step strong {
+    display: block;
+    color: #1b5e20;
+    margin-bottom: 6px;
+}
+
+.sol-process-step p {
+    font-size: 13px;
+    color: #555;
+}
+
+.sol-process-arrow {
+    font-size: 24px;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* der kasten ganz am ende - ruf uns an! */
+/* → Loesungen.html – <div class="sol-individual-cta"> in #individuell */
+.sol-individual-cta {
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.sol-individual-cta-text h3 {
+    color: #1b5e20;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.sol-individual-cta-text p {
+    color: #555;
+}

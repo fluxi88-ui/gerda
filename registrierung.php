@@ -1,0 +1,123 @@
+<?php
+session_start();
+
+// Nur verarbeiten wenn POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: registrierung_form.php');
+    exit;
+}
+
+// Eingaben bereinigen
+$anrede    = trim($_POST['anrede']    ?? '');
+$vorname   = trim($_POST['vorname']   ?? '');
+$nachname  = trim($_POST['nachname']  ?? '');
+$geburtstag = trim($_POST['geburtstag'] ?? '');
+$email     = trim($_POST['email']     ?? '');
+$passwort  = trim($_POST['passwort']  ?? '');
+$passwort2 = trim($_POST['passwort2'] ?? '');
+$strasse   = trim($_POST['strasse']   ?? '');
+$hausnummer = trim($_POST['hausnummer'] ?? '');
+$wohnort   = trim($_POST['wohnort']   ?? '');
+$plz       = trim($_POST['plz']       ?? '');
+$bundesland = trim($_POST['bundesland'] ?? '');
+$telefon   = trim($_POST['telefon']   ?? '');
+
+// Pflichtfelder prüfen
+$fehler = [];
+
+if (empty($anrede))   $fehler[] = 'Bitte eine Anrede wählen.';
+if (empty($vorname))  $fehler[] = 'Vorname ist ein Pflichtfeld.';
+if (empty($nachname)) $fehler[] = 'Nachname ist ein Pflichtfeld.';
+if (empty($passwort)) $fehler[] = 'Passwort ist ein Pflichtfeld.';
+if (empty($email)) $fehler[] = 'E-Mail ist ein Pflichtfeld.';
+if (empty($plz)) $fehler[] = 'PLZ ist ein Pflichtfeld.';
+if (empty($wohnort))  $fehler[] = 'Wohnort ist ein Pflichtfeld.';
+
+if ($passwort !== $passwort2) {
+    $fehler[] = 'Die Passwörter stimmen nicht überein.';
+}
+
+if (strlen($passwort) < 8) {
+    $fehler[] = 'Das Passwort muss mindestens 8 Zeichen lang sein.';
+}
+
+if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $fehler[] = 'Bitte eine gültige E-Mail-Adresse eingeben.';
+}
+
+if (!empty($plz) && !preg_match('/^[0-9]{4}$/', $plz)) {
+    $fehler[] = 'Bitte eine gültige österreichische Postleitzahl eingeben (4 Stellen).';
+}
+
+if (!empty($fehler)) {
+    $_SESSION['fehler'] = $fehler;
+    header('Location: registrierung_form.php');
+    exit;
+}
+
+// Datenbankverbindung
+$host   = 'localhost';
+$dbname = 'Konvoltic';
+$dbuser = 'root';
+$dbpass = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ]);
+} catch (PDOException $e) {
+    $_SESSION['fehler'] = ['Datenbankverbindung fehlgeschlagen. Bitte später erneut versuchen.'];
+    header('Location: registrierung_form.php');
+    exit;
+}
+
+// E-Mail auf Duplikat prüfen
+if (!empty($email)) {
+    $stmt = $pdo->prepare('SELECT acc_id FROM account WHERE e_mail = ?');
+    $stmt->execute([$email]);
+    if ($stmt->fetch()) {
+        $_SESSION['fehler'] = ['Diese E-Mail-Adresse ist bereits registriert.'];
+        header('Location: registrierung_form.php');
+        exit;
+    }
+}
+
+// Passwort hashen (Pepper + bcrypt Salt)
+// Pepper: geheimer Wert der NICHT in der Datenbank gespeichert wird
+define('PEPPER', 'K0nv0lt!c#P3pp3r_2026');
+$passwort_hash = password_hash($passwort . PEPPER, PASSWORD_BCRYPT);
+
+// Geburtstag: leerer String → NULL
+$geburtstag_db = (!empty($geburtstag)) ? $geburtstag : null;
+$plz_db        = (!empty($plz)) ? (int)$plz : null;
+
+try {
+    $pdo->beginTransaction();
+
+    // Kunde anlegen
+    $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse]);
+    $kn_id = $pdo->lastInsertId();
+
+    // Account anlegen (Benutzername = E-Mail oder Vorname+Nachname)
+    $benutzername = !empty($email) ? $email : ($vorname . ' ' . $nachname);
+    $email_db     = !empty($email) ? $email : null;
+
+    $stmt = $pdo->prepare('INSERT INTO account (kn_id, benutzername, passwort, e_mail)
+                           VALUES (?, ?, ?, ?)');
+    $stmt->execute([$kn_id, $benutzername, $passwort_hash, $email_db]);
+
+    $pdo->commit();
+} catch (PDOException $e) {
+    $pdo->rollBack();
+    $_SESSION['fehler'] = ['Registrierung fehlgeschlagen. Bitte erneut versuchen.'];
+    header('Location: registrierung_form.php');
+    exit;
+}
+
+$_SESSION['erfolg'] = 'Registrierung erfolgreich! Sie können sich jetzt anmelden.';
+header('Location: login.html');
+exit;
