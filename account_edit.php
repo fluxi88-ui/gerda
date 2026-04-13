@@ -1,11 +1,15 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
+// das ist die bearbeitungsseite - hier kann man seine daten ändern
+// (falls man zb. umgezogen ist oder den vornamen hasst)
+if (session_status() === PHP_SESSION_NONE) session_start(); // session starten falls noch nicht passiert
 
+// nicht eingeloggt? dann tschüss!
 if (empty($_SESSION['acc_id'])) {
     header('Location: login.html');
     exit;
 }
 
+// datenbank zeug - klassisch localhost mit root und kein passwort, sehr sicher :)
 $host   = 'localhost';
 $dbname = 'Konvoltic';
 $dbuser = 'root';
@@ -21,6 +25,7 @@ try {
     die('Datenbankfehler.');
 }
 
+// jetzt holen wir alle daten des users aus der db - benutzername, email, und ganzen kram
 $stmt = $pdo->prepare('
     SELECT a.benutzername, a.e_mail,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
@@ -32,15 +37,18 @@ $stmt = $pdo->prepare('
 $stmt->execute([$_SESSION['acc_id']]);
 $user = $stmt->fetch();
 
+// wenn kein user gefunden wurde (zb gelöscht?) dann rauswerfen
 if (!$user) {
     session_destroy();
     header('Location: login.html');
     exit;
 }
 
+// fehler aus der session holen falls beim letzten speichern was schiefgelaufen ist
 $fehler = $_SESSION['acc_fehler'] ?? '';
-unset($_SESSION['acc_fehler']);
+unset($_SESSION['acc_fehler']); // gleich wieder löschen sonst bleibt der ewig
 
+// kleine helferfunktion gegen xss - html-zeichen escaped damit niemand scripte einschleust
 function esc(string $v): string {
     return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
 }

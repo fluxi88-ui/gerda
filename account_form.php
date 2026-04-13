@@ -1,6 +1,9 @@
 <?php
+// das hier ist die "mein konto" seite - die zeigt alle infos des eingeloggten users an
+// eigentlich das herzstück vom ganzen account-system
 if (session_status() === PHP_SESSION_NONE) session_start();
 
+// kein login? dann wird nix angezeigt, tschüss!
 if (empty($_SESSION['acc_id'])) {
     header('Location: login.html');
     exit;
@@ -21,6 +24,7 @@ try {
     die('Datenbankfehler.');
 }
 
+// alle user-daten aus der datenbank holen (join auf zwei tabellen weil warum einfach wenn's auch kompliziert geht)
 $stmt = $pdo->prepare('
     SELECT a.benutzername, a.e_mail, a.profilbild,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
@@ -32,15 +36,18 @@ $stmt = $pdo->prepare('
 $stmt->execute([$_SESSION['acc_id']]);
 $user = $stmt->fetch();
 
+// account existiert nicht mehr? session zerstören und weg damit
 if (!$user) {
     session_destroy();
     header('Location: login.html');
     exit;
 }
 
+// erfolgsmeldung aus der session holen (kommt nachdem daten gespeichert wurden)
 $erfolg = $_SESSION['acc_erfolg'] ?? '';
-unset($_SESSION['acc_erfolg']);
+unset($_SESSION['acc_erfolg']); // danach direkt löschen damit die nicht ewig da steht
 
+// kleine funktion die html-zeugs escaped, ganz wichtig sonst gibt's xss
 function esc(string $v): string {
     return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
 }

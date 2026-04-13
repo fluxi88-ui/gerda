@@ -1,16 +1,21 @@
 <?php
+// hallo! das hier ist die seite die die daten vom formular entgegennimmt und speichert
+// klingt einfach, ist aber irgendwie kompliziert geworden lol
 session_start();
 
+// wenn der user nicht eingeloggt ist schicken wir ihn weg, cya!
 if (empty($_SESSION['acc_id'])) {
     header('Location: login.html');
     exit;
 }
 
+// wenn jemand versucht die seite direkt aufzurufen ohne formular -> nope
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: account_form.php');
     exit;
 }
 
+// alle felder aus dem formular holen und trimmen (leerzeichen am rand sind ekelig)
 $vorname      = trim($_POST['vorname']      ?? '');
 $nachname     = trim($_POST['nachname']     ?? '');
 $anrede       = trim($_POST['anrede']       ?? '');
@@ -21,22 +26,25 @@ $ort          = trim($_POST['ort']          ?? '');
 $plz          = trim($_POST['plz']          ?? '');
 $email        = trim($_POST['email']        ?? '');
 $passwort_neu = trim($_POST['passwort_neu'] ?? '');
-$passwort_neu2 = trim($_POST['passwort_neu2'] ?? '');
+$passwort_neu2 = trim($_POST['passwort_neu2'] ?? ''); // ja das 2 am ende ist absicht
 
+// hier wird geprüft ob der user keinen blödsinn eingegeben hat
 $fehler = [];
-if (empty($vorname))  $fehler[] = 'Vorname darf nicht leer sein.';
+if (empty($vorname))  $fehler[] = 'Vorname darf nicht leer sein.'; // wer hat denn keinen vornamen??
 if (empty($nachname)) $fehler[] = 'Nachname darf nicht leer sein.';
-if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) $fehler[] = 'Ungültige E-Mail-Adresse.';
+if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) $fehler[] = 'Ungültige E-Mail-Adresse.'; // "test@" ist keine email!!
 if (!empty($plz) && !preg_match('/^[0-9]{4}$/', $plz)) $fehler[] = 'PLZ muss 4 Stellen haben.';
 if (!empty($passwort_neu) && strlen($passwort_neu) < 8) $fehler[] = 'Neues Passwort muss mindestens 8 Zeichen haben.';
-if ($passwort_neu !== $passwort_neu2) $fehler[] = 'Die neuen Passwörter stimmen nicht überein.';
+if ($passwort_neu !== $passwort_neu2) $fehler[] = 'Die neuen Passwörter stimmen nicht überein.'; // tipp-fehler lol
 
+// wenn irgendwas nicht stimmt -> fehler in die session und zurück zum formular
 if (!empty($fehler)) {
     $_SESSION['acc_fehler'] = implode(' | ', $fehler);
     header('Location: account_edit.php');
     exit;
 }
 
+// datenbankzugang - bitte nicht weitersagen dass das passwort leer ist :)
 $host   = 'localhost';
 $dbname = 'Konvoltic';
 $dbuser = 'root';
@@ -54,7 +62,8 @@ try {
     exit;
 }
 
-// kn_id holen
+// kn_id holen - die brauchen wir um die kunde-tabelle zu updaten
+    // (account und kunde sind zwei tabellen, don't ask)
 $stmt = $pdo->prepare('SELECT kn_id FROM account WHERE acc_id = ?');
 $stmt->execute([$_SESSION['acc_id']]);
 $row = $stmt->fetch();
@@ -66,7 +75,9 @@ $plz_db        = !empty($plz) ? (int)$plz : null;
 try {
     $pdo->beginTransaction();
 
-    // Profilbild hochladen (optional)
+    // profilbild hochladen - nur wenn der user überhaupt eins hochgeladen hat
+    // jpeg, png und gif gehen, bmp nicht weil... wer benutzt noch bmp??
+    // max 2MB weil wir keine unbegrenzte festplatte haben
     $profilbild_sql = '';
     $profilbild_param = [];
     if (!empty($_FILES['profilbild']['tmp_name']) && is_uploaded_file($_FILES['profilbild']['tmp_name'])) {
@@ -100,6 +111,7 @@ try {
     exit;
 }
 
+// alles gut!! user zurück zur kontoübersicht schicken
 $_SESSION['acc_erfolg'] = 'Daten erfolgreich gespeichert.';
 header('Location: account_form.php');
 exit;
