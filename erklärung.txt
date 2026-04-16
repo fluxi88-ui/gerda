@@ -1,0 +1,608 @@
+================================================================
+  ERKLÄRUNGEN: PHP & HTML - BEFEHLE UND ZUSAMMENHÄNGE
+  Projekt: Konvoltic Wagner Gerda
+  Stand: April 2026
+================================================================
+
+
+================================================================
+  TEIL 1: WIE PHP UND HTML ZUSAMMENARBEITEN
+================================================================
+
+PHP (.php-Dateien) und HTML arbeiten in diesem Projekt Hand in Hand.
+PHP läuft auf dem SERVER (bei XAMPP auf deinem Computer), bevor
+die Seite an den Browser geschickt wird. HTML läuft im BROWSER.
+
+Ablauf bei jedem Seitenaufruf:
+  1. Browser schickt Anfrage an den Server (z.B. account_form.php)
+  2. PHP-Code wird ausgeführt (DB-Abfrage, Session prüfen, ...)
+  3. PHP erzeugt daraus fertiges HTML
+  4. Fertiges HTML wird an den Browser geschickt
+  5. Browser zeigt das HTML an
+
+PHP-Code innerhalb von HTML schreibt man so:
+  <?php  ... PHP-Code ...  ?>       normaler PHP-Block
+  <?= $variable ?>                  Kurzform für: <?php echo $variable; ?>
+
+Beispiel aus account_form.php:
+  <dd><?= esc($user['vorname']) ?></dd>
+  → PHP holt den Vornamen aus der DB und schreibt ihn ins HTML.
+  → Der Browser sieht nur: <dd>Gerda</dd>
+
+
+================================================================
+  TEIL 2: DAS FORMULAR - HTML SENDET, PHP EMPFÄNGT
+================================================================
+
+HTML-Formular (registrierung_form.php):
+---------------------------------------
+<form method="post" action="registrierung.php" enctype="multipart/form-data">
+
+  method="post"
+    Schickt die Formulardaten versteckt im HTTP-Body.
+    Alternative wäre "get" (dann stehen die Daten sichtbar in der URL).
+    POST wird bei Passwörtern und persönlichen Daten verwendet.
+
+  action="registrierung.php"
+    An diese PHP-Datei werden die Daten geschickt wenn der User
+    auf "Absenden" klickt. PHP empfängt sie dann mit $_POST[...].
+
+  enctype="multipart/form-data"
+    Notwendig wenn Dateien (Bilder, PDFs) hochgeladen werden.
+    Ohne dieses Attribut kommen Dateien NICHT beim Server an.
+    Wird in registrierung_form.php (Dokument) und
+    account_edit.php (Profilbild) verwendet.
+
+HTML-Eingabefelder und ihr name-Attribut:
+-----------------------------------------
+<input type="text" name="vorname" ...>
+
+  Das name-Attribut ist der SCHLÜSSEL in PHP.
+  Was der User eingibt landet in PHP unter: $_POST['vorname']
+  Der name im HTML und der Key in PHP müssen GLEICH sein!
+
+  Beispiel:
+    HTML:  <input type="text" name="email" value="">
+    PHP:   $email = trim($_POST['email'] ?? '');
+    → PHP liest den Wert aus dem Feld "email"
+
+  name="anrede"       → $_POST['anrede']
+  name="vorname"      → $_POST['vorname']
+  name="nachname"     → $_POST['nachname']
+  name="email"        → $_POST['email']
+  name="passwort"     → $_POST['passwort']
+  name="passwort2"    → $_POST['passwort2']
+  name="dokument"     → $_FILES['dokument']   (weil Datei-Upload!)
+  name="profilbild"   → $_FILES['profilbild'] (weil Datei-Upload!)
+
+HTML-Input-Typen:
+-----------------
+  type="text"       normaler Texteingang
+  type="password"   Text wird als ••••• angezeigt (Browser verschleiert)
+  type="email"      Browser prüft ob @ vorhanden ist (HTML-Validierung)
+  type="date"       Zeigt Datumspicker an, Wert kommt als "YYYY-MM-DD"
+  type="tel"        Für Telefonnummern (auf Mobilgeräten erscheint Ziffernpad)
+  type="radio"      Nur eine Option wählbar (z.B. Herr / Frau / Divers)
+  type="file"       Datei-Upload-Button
+  type="hidden"     Unsichtbares Feld (z.B. MAX_FILE_SIZE für Upload-Limit)
+  type="submit"     Absenden-Button - schickt das Formular ab
+
+HTML-Attribute bei Eingabefeldern:
+-----------------------------------
+  required          Pflichtfeld - Browser lässt Formular nicht absenden
+                    wenn dieses Feld leer ist. PHP prüft trotzdem nochmals!
+  placeholder="..." Grauer Hinweistext im Feld (verschwindet beim Tippen)
+  value="..."       Vorausgefüllter Wert (wichtig beim Bearbeiten!)
+  pattern="[0-9]{4}" HTML-seitige Regex-Prüfung (z.B. PLZ = 4 Ziffern)
+  autofocus         Dieses Feld wird beim Laden der Seite fokussiert
+  accept="..."      Welche Dateitypen beim file-Upload erlaubt sind
+                    (nur Browser-Hinweis, PHP muss trotzdem prüfen!)
+
+Buttons:
+--------
+  <button type="submit">Absenden</button>   schickt Formular ab
+  <button type="reset">Zurücksetzen</button> setzt alle Felder auf leer
+
+Vorausgefüllte Felder (account_edit.php):
+------------------------------------------
+Im Bearbeitungsformular werden Felder mit bestehenden Daten gefüllt:
+  <input type="text" name="vorname" value="<?= esc($user['vorname']) ?>">
+  → PHP schreibt den aktuellen Wert aus der DB ins value-Attribut
+  → Der User sieht seine alten Daten und kann sie ändern
+
+Radio-Buttons vorauswählen:
+  <input type="radio" name="anrede" value="herr"
+         <?= $user['anrede'] === 'herr' ? 'checked' : '' ?>>
+  → PHP vergleicht den DB-Wert mit "herr"
+  → Wenn gleich: schreibt PHP das Wort "checked" ins HTML
+  → Browser markiert den Button dann als ausgewählt
+
+
+================================================================
+  TEIL 3: PHP - SESSIONS (ANGEMELDET BLEIBEN)
+================================================================
+
+Das HTTP-Protokoll ist "zustandslos" - jede Anfrage ist für den
+Server eine neue, unbekannte Person. Sessions lösen dieses Problem:
+Der Server merkt sich wer eingeloggt ist.
+
+session_start()
+  MUSS am Anfang jeder PHP-Datei stehen die Sessions benutzt.
+  Startet eine neue Session ODER lädt eine bestehende.
+  Ohne diesen Aufruf sind $_SESSION-Variablen nicht verfügbar.
+
+  Achtung: Darf NICHT aufgerufen werden wenn schon HTML ausgegeben
+  wurde (kein echo/HTML vor session_start()!).
+
+session_status()
+  Gibt zurück ob gerade eine Session läuft.
+  Wird mit PHP_SESSION_NONE verglichen:
+    if (session_status() === PHP_SESSION_NONE) session_start();
+  → Verhindert den Fehler "session already started"
+  → Wird in Dateien verwendet die manchmal direkt, manchmal nach
+    einem include aufgerufen werden.
+
+$_SESSION['schlüssel'] = wert
+  Speichert einen Wert in der Session (auf dem Server).
+  Der Browser bekommt nur eine Session-ID als Cookie.
+  Beim nächsten Seitenaufruf schickt der Browser die ID mit,
+  der Server lädt die dazugehörigen Daten.
+
+  Welche $_SESSION-Variablen wo verwendet werden:
+    $_SESSION['acc_id']       ID des eingeloggten Users (aus der DB)
+    $_SESSION['benutzername'] Benutzername nach dem Login
+    $_SESSION['fehler']       Fehlermeldungen für Registrierungsseite
+    $_SESSION['erfolg']       Erfolgsmeldung nach Registrierung
+    $_SESSION['acc_fehler']   Fehlermeldungen für Account-Bearbeitungsseite
+    $_SESSION['acc_erfolg']   Erfolgsmeldung nach Daten speichern
+
+  Login-Prüfung (in jeder geschützten Seite):
+    if (empty($_SESSION['acc_id'])) {
+        header('Location: login.html');
+        exit;
+    }
+  → Wenn nicht eingeloggt: sofort zur Login-Seite umleiten
+
+unset($_SESSION['schlüssel'])
+  Löscht eine einzelne Session-Variable.
+  Wird verwendet damit Meldungen nur EINMAL angezeigt werden:
+    $erfolg = $_SESSION['acc_erfolg'] ?? '';
+    unset($_SESSION['acc_erfolg']);
+  → Erst auslesen, dann löschen.
+  → Beim nächsten Seitenaufruf ist die Variable weg.
+
+session_destroy()
+  Löscht die gesamte Session (ALLE Variablen weg).
+  Wird beim Logout verwendet → User ist danach ausgeloggt.
+  Auch wenn ein User-Account in der DB nicht mehr existiert.
+
+
+================================================================
+  TEIL 4: PHP - FORMULARDATEN EMPFANGEN UND PRÜFEN
+================================================================
+
+$_SERVER['REQUEST_METHOD']
+  Gibt an wie die Seite aufgerufen wurde: 'GET' oder 'POST'.
+  GET  = normaler Link-Klick / direkte URL-Eingabe
+  POST = Formular wurde abgeschickt
+  Jede PHP-Datei die Formulardaten verarbeitet prüft das zuerst:
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: formular.php');
+        exit;
+    }
+  → Wenn jemand die URL direkt aufruft (ohne Formular): wegschicken.
+
+$_POST['feldname']
+  Liest den Wert eines Formularfeldes nach dem Absenden.
+  Das 'feldname' muss mit dem name-Attribut im HTML übereinstimmen.
+  Sicherheitsregel: NIEMALS direkt verwenden ohne trim() und Prüfung!
+  Der Null-Koaleszenz-Operator ?? gibt '' zurück wenn Feld fehlt:
+    $vorname = trim($_POST['vorname'] ?? '');
+
+$_FILES['feldname']
+  Enthält Infos über hochgeladene Dateien.
+  Wichtige Unter-Schlüssel:
+    $_FILES['dokument']['tmp_name']  temporärer Speicherort am Server
+    $_FILES['dokument']['type']      MIME-Typ (z.B. 'image/jpeg')
+    $_FILES['dokument']['size']      Dateigröße in Bytes
+  Das Formular muss enctype="multipart/form-data" haben!
+
+trim($string)
+  Entfernt Leerzeichen (und Tabs, Zeilenumbrüche) am Anfang und Ende.
+  Wichtig weil User oft versehentlich Leerzeichen eingeben.
+  Beispiel: "  gerda@test.at  " wird zu "gerda@test.at"
+
+empty($variable)
+  Gibt true zurück wenn Variable leer ist (leerer String, null, 0, []).
+  Wird für Pflichtfeld-Prüfung verwendet:
+    if (empty($vorname)) $fehler[] = 'Vorname ist ein Pflichtfeld.';
+
+strlen($string)
+  Gibt die Anzahl der Zeichen eines Strings zurück.
+  Wird für Passwort-Mindestlänge verwendet:
+    if (strlen($passwort) < 8) $fehler[] = 'Mindestens 8 Zeichen.';
+
+filter_var($wert, FILTER_VALIDATE_EMAIL)
+  Prüft ob ein String eine gültige E-Mail-Adresse ist.
+  Gibt false zurück wenn ungültig, sonst den Wert selbst.
+  Prüft ob @ vorhanden, ob Domain existiert, etc.
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { ... }
+
+preg_match('/^[0-9]{4}$/', $plz)
+  Prüft ob ein String einem Muster (Regular Expression/Regex) entspricht.
+  Das Muster '/^[0-9]{4}$/' bedeutet:
+    ^         Anfang des Strings
+    [0-9]     eine Ziffer von 0-9
+    {4}       genau 4 Mal
+    $         Ende des Strings
+  → Muss genau 4 Ziffern sein (österreichische PLZ)
+
+in_array($wert, $array)
+  Prüft ob ein Wert in einem Array enthalten ist.
+  Wird für erlaubte Datei-Typen verwendet:
+    $erlaubt = ['image/jpeg', 'image/png', 'image/gif'];
+    if (in_array($_FILES['profilbild']['type'], $erlaubt)) { ... }
+
+is_uploaded_file($pfad)
+  Prüft ob eine Datei wirklich per HTTP-Upload hochgeladen wurde.
+  Sicherheitsmaßnahme gegen Angriffe wo jemand lokale Serverdateien
+  als "Upload" ausgeben könnte. Immer vor file_get_contents() prüfen!
+
+file_get_contents($pfad)
+  Liest eine Datei und gibt den Inhalt als String zurück.
+  Für Bilder: gibt die Binärdaten zurück (0en und 1en).
+  Diese Binärdaten werden dann direkt in der Datenbank gespeichert.
+
+implode($trenner, $array)
+  Verbindet alle Elemente eines Arrays zu einem String.
+    $fehler = ['Feld A fehlt', 'Feld B fehlt'];
+    implode(' | ', $fehler)  →  "Feld A fehlt | Feld B fehlt"
+  Wird für Fehlermeldungen verwendet die als ein String gespeichert werden.
+
+$fehler[] = 'Meldung'
+  Hängt einen neuen Wert ans Ende eines Arrays an.
+  Alle Fehler werden gesammelt und erst am Ende geprüft:
+    $fehler = [];
+    if (empty($vorname))  $fehler[] = 'Vorname fehlt.';
+    if (empty($nachname)) $fehler[] = 'Nachname fehlt.';
+    if (!empty($fehler)) {
+        $_SESSION['fehler'] = $fehler;
+        header('Location: formular.php');
+        exit;
+    }
+  → Wenn $fehler leer ist: alles gut, weiter mit DB-Insert.
+  → Wenn Fehler vorhanden: alle Fehler in Session, zurück zum Formular.
+
+
+================================================================
+  TEIL 5: PHP - PASSWORT-SICHERHEIT
+================================================================
+
+Passwörter werden NIEMALS im Klartext gespeichert!
+In der Datenbank steht immer nur ein Hash (unlesbarer Code).
+
+define('PEPPER', 'K0nv0lt!c#P3pp3r_2026')
+  Definiert eine Konstante - ein geheimer Wert der fest im Code steht.
+  Pepper = extra Sicherheitsschicht zusätzlich zum automatischen Salt.
+  Wird zum Passwort dazugehängt BEVOR gehashed wird.
+  Vorteil: Selbst wenn die Datenbank gestohlen wird, fehlt der Pepper-
+  Wert (der ja nur im Code steht) und Hashes können nicht geknackt werden.
+
+password_hash($passwort . PEPPER, PASSWORD_BCRYPT)
+  Erstellt einen sicheren Hash aus dem Passwort + Pepper.
+  PASSWORD_BCRYPT = der verwendete Algorithmus (gilt als sehr sicher).
+  Das Ergebnis ist jedes Mal anders (durch automatisches Salt) -
+  auch wenn das gleiche Passwort zweimal gehasht wird!
+  Beispiel: "meinPasswort123" + Pepper → "$2y$10$abc123..."
+
+password_verify($eingabe . PEPPER, $gespeicherterHash)
+  Beim Login: prüft ob das eingegebene Passwort + Pepper zum Hash passt.
+  Gibt true oder false zurück.
+  Man kann den Hash nicht "zurückrechnen" - nur vergleichen!
+    if (!password_verify($passwort . PEPPER, $account['passwort'])) {
+        header('Location: login.html?error=1');
+        exit;
+    }
+
+Warum sagen wir nicht ob User oder Passwort falsch ist?
+  Bei Login-Fehlern immer nur "Benutzername oder Passwort falsch" anzeigen.
+  Würde man "Benutzername existiert nicht" sagen, könnten Angreifer
+  systematisch gültige Benutzernamen herausfinden.
+
+
+================================================================
+  TEIL 6: PHP - DATENBANKVERBINDUNG (PDO)
+================================================================
+
+PDO = PHP Data Objects - Schnittstelle zwischen PHP und MySQL-Datenbank.
+Alle Abfragen gehen über PDO um SQL-Injection zu verhindern.
+
+new PDO("mysql:host=...;dbname=...;charset=utf8mb4", user, passwort, optionen)
+  Erstellt eine Datenbankverbindung.
+  Parameter:
+    host=localhost     Datenbank läuft am gleichen Rechner (XAMPP)
+    dbname=Konvoltic   Name der Datenbank
+    charset=utf8mb4    Zeichensatz (unterstützt auch Emojis/Sonderzeichen)
+    root               Benutzername (bei XAMPP Standard: root)
+    ''                 Passwort (bei XAMPP Standard: leer)
+  Optionen:
+    ERRMODE_EXCEPTION     Wirft Exception bei Fehler (try/catch fängt sie)
+    FETCH_ASSOC           Ergebnisse als assoziatives Array (['name'] statt [0])
+    EMULATE_PREPARES false Echter Prepared-Statement-Modus (sicherer)
+
+try { ... } catch (PDOException $e) { ... }
+  Fehlerbehandlung bei DB-Problemen.
+  Wenn die Verbindung fehlschlägt (z.B. DB nicht gestartet):
+    → catch-Block wird ausgeführt
+    → User wird zur Fehlerseite weitergeleitet
+    → Der eigentliche Fehlertext wird NICHT angezeigt (Sicherheit!)
+
+$pdo->prepare('SELECT * FROM tabelle WHERE id = ?')
+  Bereitet ein SQL-Statement vor - mit ? als Platzhalter.
+  WICHTIG für Sicherheit: verhindert SQL-Injection!
+  SQL-Injection Beispiel ohne prepare():
+    Eingabe: "1 OR 1=1"
+    Query:   SELECT * FROM account WHERE id = 1 OR 1=1
+    → Gibt ALLE Datensätze zurück! Gefährlich!
+  Mit prepare() + execute() werden Eingaben immer als reiner Wert
+  behandelt, niemals als SQL-Code.
+
+$stmt->execute([$wert1, $wert2, ...])
+  Führt das vorbereitete Statement aus.
+  Die Werte in [] werden in der Reihenfolge für die ? eingesetzt.
+  Beispiel:
+    $stmt = $pdo->prepare('SELECT * FROM account WHERE benutzername = ? OR e_mail = ?');
+    $stmt->execute([$username, $username]);
+    → Erstes ? = $username, zweites ? = $username
+
+$stmt->fetch()
+  Holt EINE Zeile aus dem Abfrage-Ergebnis als Array.
+  Gibt false zurück wenn keine Zeile gefunden wurde.
+    $user = $stmt->fetch();
+    if (!$user) { /* nicht gefunden */ }
+
+$pdo->lastInsertId()
+  Gibt die automatisch vergebene ID des zuletzt gespeicherten Datensatzes.
+  Nach einem INSERT in die "kunde"-Tabelle wird die neue kn_id gebraucht
+  um sie beim INSERT in "account" einzutragen.
+
+$pdo->beginTransaction() / $pdo->commit() / $pdo->rollBack()
+  Transaktion = mehrere DB-Operationen als eine Einheit.
+  Bei der Registrierung müssen ZWEI Tabellen befüllt werden:
+    1. INSERT INTO kunde (...)      → neuer Kundeneintrag
+    2. INSERT INTO account (...)    → neuer Account-Eintrag
+  Wenn Operation 1 klappt, aber Operation 2 nicht:
+    → ohne Transaktion: halbfertiger Datensatz in der DB (Datenmüll!)
+    → mit Transaktion:  rollBack() macht auch Operation 1 rückgängig
+  beginTransaction()   startet die Transaktion
+  commit()             speichert alle Änderungen dauerhaft
+  rollBack()           macht alle Änderungen seit beginTransaction() rückgängig
+
+
+================================================================
+  TEIL 7: PHP - AUSGABE UND WEITERLEITUNG
+================================================================
+
+header('Location: seite.php')
+  Schickt einen HTTP-Header an den Browser: "Gehe zu dieser URL".
+  Der Browser führt dann sofort eine neue Anfrage durch.
+  WICHTIG: Danach immer exit schreiben!
+  Ohne exit läuft der PHP-Code nach header() weiter (Sicherheitslücke!).
+
+exit
+  Beendet das PHP-Script sofort.
+  Der Browser bekommt nach diesem Punkt nichts mehr vom Server.
+  Wird immer nach header('Location: ...') geschrieben.
+
+echo $wert  /  <?= $wert ?>
+  Gibt Text oder HTML aus - wird direkt in die Seite geschrieben.
+  <?= $wert ?> ist eine Kurzform für <?php echo $wert; ?>
+
+die('Nachricht')
+  Gibt Text aus und beendet das Script sofort.
+  Wird bei kritischen Fehlern verwendet (z.B. DB-Verbindung komplett weg):
+    } catch (PDOException $e) { die('Datenbankfehler.'); }
+
+htmlspecialchars($string, ENT_QUOTES, 'UTF-8')
+  Wandelt HTML-Sonderzeichen in sichere Codes um:
+    <   →   &lt;
+    >   →   &gt;
+    "   →   &quot;
+    '   →   &#039;
+    &   →   &amp;
+  WARUM: Verhindert XSS (Cross-Site-Scripting)!
+  Wenn ein User "<script>alert('hack')</script>" als Namen eingibt
+  und wir das direkt ins HTML schreiben, führt der Browser das Script aus.
+  Mit htmlspecialchars() wird daraus harmloser Text.
+  Die esc()-Funktion ist eine Abkürzung dafür:
+    function esc(string $v): string {
+        return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+    }
+
+base64_encode($binaerdaten)
+  Wandelt Binärdaten (Bild aus DB) in Text um.
+  Bilder können direkt im HTML eingebettet werden:
+    <img src="data:image/jpeg;base64,<?= base64_encode($user['profilbild']) ?>">
+  → Kein extra Datei-Upload nötig, Bild kommt direkt aus der DB.
+
+json_encode(['schlüssel' => $wert])
+  Wandelt PHP-Array in JSON-String um.
+    json_encode(['eingeloggt' => true])  →  {"eingeloggt":true}
+  Wird in session_status.php verwendet damit JavaScript prüfen kann
+  ob ein User eingeloggt ist (ohne eine neue Seite zu laden).
+
+header('Content-Type: application/json')
+  Teilt dem Browser mit dass die Antwort JSON ist (kein HTML).
+  Muss vor json_encode() stehen.
+
+
+================================================================
+  TEIL 8: HTML-GRUNDSTRUKTUR
+================================================================
+
+<!DOCTYPE html>
+  Erste Zeile jeder HTML-Datei.
+  Teilt dem Browser mit: das ist modernes HTML5.
+  Ohne DOCTYPE könnte der Browser im "Quirks-Mode" rendern.
+
+<html lang="de">
+  Wurzelelement der ganzen Seite.
+  lang="de" teilt Screenreadern und Suchmaschinen mit: Inhalt ist Deutsch.
+
+<head>
+  Unsichtbarer Kopfbereich - enthält Metadaten, keine Inhalte.
+
+<meta charset="utf-8">
+  Zeichensatz: UTF-8 = unterstützt Umlaute (ä, ö, ü, ß), Emojis, etc.
+  Ohne charset könnten Umlaute als komische Zeichen angezeigt werden.
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  Für alte Internet Explorer: neueste Engine verwenden.
+  Heute kaum noch nötig, schadet aber nicht.
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  Macht die Seite auf Mobilgeräten richtig darstellbar (Responsive Design).
+  Ohne viewport würde ein Smartphone die Desktop-Ansicht verkleinert zeigen.
+
+<title>Text</title>
+  Text der im Browser-Tab angezeigt wird.
+
+<link rel="stylesheet" href="style.css">
+  Bindet eine externe CSS-Datei ein.
+  rel="stylesheet" = Typ der verlinkten Ressource
+  href= = Pfad zur CSS-Datei
+
+<body>
+  Der sichtbare Seiteninhalt. Alles was im Browser angezeigt wird.
+
+<nav>    Navigation - Menü und Links
+<header> Kopfbereich - Logo, Überschriften
+<main>   Hauptinhalt der Seite
+<footer> Fußbereich (im Projekt nicht explizit verwendet)
+
+<div class="name">
+  Allgemeines Container-Element ohne eigene Bedeutung.
+  Wird für CSS-Styling und JavaScript-Zugriff verwendet.
+  class="name" verbindet das Element mit CSS-Regeln.
+
+<a href="ziel.html" class="...">Text</a>
+  Hyperlink - klickbarer Text der zu einer anderen Seite führt.
+  href="ziel.html"  Zieldatei
+  class="..."       CSS-Klasse für das Aussehen
+
+<img src="pfad.png" alt="Beschreibung">
+  Zeigt ein Bild an.
+  src=  Pfad zum Bild
+  alt=  Alternativtext (wird angezeigt wenn Bild nicht lädt,
+        wichtig für Barrierefreiheit und Suchmaschinen)
+
+<ul> und <li>
+  ul = unordered list (Aufzählungsliste mit Punkten)
+  li = list item (ein Listeneintrag)
+  Wird für das Navigationsmenü verwendet.
+
+<fieldset> und <legend>
+  Gruppiert zusammengehörige Formularfelder optisch.
+  fieldset = zeichnet einen Rahmen um die Gruppe
+  legend   = Überschrift der Gruppe (z.B. "Persönliche Daten")
+
+<label for="id">Text</label>
+  Beschriftung für ein Eingabefeld.
+  for="id" verknüpft das Label mit dem Feld (id="id").
+  Vorteil: Klick auf den Label-Text fokussiert das Eingabefeld.
+  Wichtig für Barrierefreiheit (Screenreader lesen den Label vor).
+
+<select name="bundesland">
+  Dropdown-Auswahlfeld.
+  <option value="wien">Wien</option>
+  → value= ist was PHP empfängt, der Text dazwischen ist was der User sieht.
+
+<button type="submit">Text</button>
+  Schickt das Formular ab (an die action-URL des <form>-Elements).
+
+<small>kleiner Text</small>
+  Zeigt Text kleiner an (wird für Hinweistexte verwendet, z.B. "max. 2 MB").
+
+<span>Text</span>
+  Inline-Container ohne Bedeutung (wie div, aber für Text innerhalb einer Zeile).
+  Wird für kleine Fehlermeldungen direkt neben einem Feld verwendet.
+
+================================================================
+  TEIL 9: DER KOMPLETTE ABLAUF IM ÜBERBLICK
+================================================================
+
+REGISTRIERUNG:
+  1. User öffnet registrierung_form.php (HTML-Formular)
+  2. User füllt Felder aus und klickt "Konto erstellen"
+  3. Browser sendet POST-Anfrage an registrierung.php
+  4. registrierung.php:
+     a) Prüft ob POST
+     b) Liest alle $_POST-Felder aus (trim)
+     c) Validiert: leere Pflichtfelder, E-Mail-Format, PLZ, Passwortlänge
+     d) Bei Fehler: $_SESSION['fehler'] setzen, zurück zum Formular
+     e) Prüft ob E-Mail bereits in DB vorhanden
+     f) Hasht Passwort (+ Pepper, bcrypt)
+     g) Startet Transaktion
+     h) INSERT INTO kunde (Adresse, Name, etc.)
+     i) INSERT INTO account (kn_id, Benutzername, Passwort-Hash)
+     j) Commit → DB gespeichert
+     k) Weiterleitung zu login.html mit Erfolgsmeldung
+
+LOGIN:
+  1. User öffnet login.html (reines HTML)
+  2. User gibt Benutzername + Passwort ein
+  3. Browser sendet POST an login.php
+  4. login.php:
+     a) Prüft ob POST
+     b) Trim der Eingaben, leere Prüfung
+     c) SELECT aus DB nach Benutzername oder E-Mail
+     d) password_verify(Eingabe + Pepper, Hash aus DB)
+     e) Bei Fehler: zurück zu login.html?error=1
+     f) Bei Erfolg: $_SESSION['acc_id'] und ['benutzername'] setzen
+     g) Weiterleitung zu Website.html
+
+MEIN KONTO ANZEIGEN:
+  1. User klickt auf "Mein Konto"
+  2. Browser öffnet account_form.php
+  3. account_form.php:
+     a) session_start() - Session laden
+     b) Prüft $_SESSION['acc_id'] - nicht eingeloggt? → login.html
+     c) SELECT aus DB (JOIN account + kunde) mit acc_id
+     d) Liest $_SESSION['acc_erfolg'] aus (Erfolgsmeldung vom letzten Speichern)
+     e) unset($_SESSION['acc_erfolg']) - Meldung löschen
+     f) Gibt HTML-Seite aus mit allen User-Daten (durch esc() geschützt)
+
+DATEN BEARBEITEN:
+  1. User klickt auf "Daten bearbeiten"
+  2. Browser öffnet account_edit.php
+  3. account_edit.php:
+     a) Wie account_form.php: Session prüfen, Daten aus DB laden
+     b) Gibt Formular aus, Felder mit aktuellen Werten vorausgefüllt
+  4. User ändert Daten, klickt "Speichern"
+  5. Browser sendet POST an account.php
+  6. account.php:
+     a) Login prüfen, POST prüfen
+     b) Eingaben validieren (Pflichtfelder, E-Mail, PLZ, PW-Länge)
+     c) Bei Fehler: zurück zu account_edit.php
+     d) Profilbild-Upload verarbeiten (falls vorhanden)
+     e) UPDATE kunde + UPDATE account in Transaktion
+     f) Falls neues Passwort: hashen + UPDATE account
+     g) $_SESSION['acc_erfolg'] setzen
+     h) Weiterleitung zu account_form.php
+
+LOGOUT:
+  1. User klickt auf "Abmelden"
+  2. Browser öffnet logout.php
+  3. logout.php:
+     a) session_start() - Session laden (damit man sie zerstören kann)
+     b) session_destroy() - gesamte Session löschen
+     c) Weiterleitung zu Website.html
+     d) exit
+
+SESSION-STATUS (für JavaScript):
+  JavaScript kann kein PHP lesen, aber eine Anfrage an session_status.php
+  schicken und die JSON-Antwort auswerten:
+    {"eingeloggt": true}  oder  {"eingeloggt": false}
+  So können Login/Logout-Buttons dynamisch angepasst werden.
+
+================================================================

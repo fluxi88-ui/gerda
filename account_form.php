@@ -9,10 +9,10 @@ if (empty($_SESSION['acc_id'])) {
     exit;
 }
 
-$host   = 'localhost';
-$dbname = 'Konvoltic';
-$dbuser = 'root';
-$dbpass = '';
+$host   = 'moneyboykonvoltic.mysql.database.azure.com';
+$dbname = 'konvolticdatenbank';
+$dbuser = 'Einhorn';
+$dbpass = 'H3l3N4!!!!';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [

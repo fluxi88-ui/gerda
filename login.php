@@ -19,10 +19,10 @@ if (empty($username) || empty($passwort)) {
     exit;
 }
 
-$host   = 'localhost';
-$dbname = 'Konvoltic';
-$dbuser = 'root';
-$dbpass = '';
+$host   = 'moneyboykonvoltic.mysql.database.azure.com';
+$dbname = 'konvolticdatenbank';
+$dbuser = 'Einhorn';
+$dbpass = 'H3l3N4!!!!';
 
 // der pepper ist ein geheimes extra-gewürz für das passwort-hashing
 // damit auch wenn die db geklaut wird niemand einfach so die passwörter knackt

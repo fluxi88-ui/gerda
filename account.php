@@ -45,10 +45,10 @@ if (!empty($fehler)) {
 }
 
 // datenbankzugang - bitte nicht weitersagen dass das passwort leer ist :)
-$host   = 'localhost';
-$dbname = 'Konvoltic';
-$dbuser = 'root';
-$dbpass = '';
+$host   = 'moneyboykonvoltic.mysql.database.azure.com';
+$dbname = 'konvolticdatenbank';
+$dbuser = 'Einhorn';
+$dbpass = 'H3l3N4!!!!';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [

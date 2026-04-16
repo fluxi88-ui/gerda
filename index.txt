@@ -1,0 +1,334 @@
+================================================================
+  PHP-BEFEHLE - ÜBERSICHT, DATEI & ZEILE
+  Projekt: Konvoltic Wagner Gerda
+  Stand: April 2026
+================================================================
+
+----------------------------------------------------------------
+SESSION
+----------------------------------------------------------------
+
+session_start()
+  Startet oder lädt eine bestehende Session.
+  → login.php                Z.4
+  → registrierung.php        Z.2
+  → logout.php               Z.4
+  → session_status.php       Z.2
+  → account_form.php         Z.4   (nur wenn noch keine Session läuft)
+  → account_edit.php         Z.4   (nur wenn noch keine Session läuft)
+  → registrierung_form.php   Z.55  (nur wenn noch keine Session läuft)
+
+session_status()
+  Gibt den Status der aktuellen Session zurück.
+  Wird mit PHP_SESSION_NONE verglichen um doppelten session_start() zu verhindern.
+  → account_form.php         Z.4
+  → account_edit.php         Z.4
+  → registrierung_form.php   Z.55
+
+session_destroy()
+  Zerstört die gesamte Session (alle Daten weg).
+  → logout.php               Z.5
+  → account_form.php         Z.41  (wenn User nicht mehr in DB vorhanden)
+  → account_edit.php         Z.43  (wenn User nicht mehr in DB vorhanden)
+
+$_SESSION['acc_id']
+  Session-Variable: speichert die ID des eingeloggten Users.
+  Lesen (Login-Prüfung):
+  → login.php                Z.55  (schreiben nach erfolgreichem Login)
+  → account_form.php         Z.7   (lesen - Prüfung ob eingeloggt)
+  → account_edit.php         Z.7   (lesen - Prüfung ob eingeloggt)
+  → account.php              Z.7   (lesen - Prüfung ob eingeloggt)
+  → session_status.php       Z.4   (lesen - für JSON-Antwort)
+
+$_SESSION['benutzername']
+  Session-Variable: speichert den Benutzernamen nach dem Login.
+  → login.php                Z.56  (schreiben)
+
+$_SESSION['fehler']
+  Session-Variable: überträgt Fehlermeldungen zur Registrierungsseite.
+  → registrierung.php        Z.51  (schreiben bei Validierungsfehler)
+  → registrierung.php        Z.63  (schreiben bei falschem Datei-Typ)
+  → registrierung.php        Z.67  (schreiben bei zu großer Datei)
+  → registrierung.php        Z.90  (schreiben bei DB-Fehler)
+  → registrierung.php        Z.97  (schreiben bei doppelter E-Mail)
+  → registrierung.php        Z.130 (schreiben bei INSERT-Fehler)
+  → registrierung_form.php   Z.56  (lesen - Fehler anzeigen)
+  → registrierung_form.php   Z.60  (lesen - foreach-Schleife)
+  → registrierung_form.php   Z.62  (löschen mit unset)
+
+$_SESSION['erfolg']
+  Session-Variable: Erfolgsmeldung nach Registrierung.
+  → registrierung.php        Z.133 (schreiben)
+
+$_SESSION['acc_fehler']
+  Session-Variable: überträgt Fehlermeldungen zur Account-Bearbeitungsseite.
+  → account.php              Z.44  (schreiben bei Validierungsfehler)
+  → account.php              Z.61  (schreiben bei DB-Fehler)
+  → account.php              Z.110 (schreiben bei UPDATE-Fehler)
+  → account_edit.php         Z.47  (lesen - Fehler anzeigen)
+  → account_edit.php         Z.48  (löschen mit unset)
+
+$_SESSION['acc_erfolg']
+  Session-Variable: Erfolgsmeldung nach Daten speichern.
+  → account.php              Z.116 (schreiben)
+  → account_form.php         Z.44  (lesen - Meldung anzeigen)
+  → account_form.php         Z.45  (löschen mit unset)
+
+unset($_SESSION[...])
+  Löscht eine einzelne Session-Variable.
+  → account_form.php         Z.45  (löscht acc_erfolg)
+  → account_edit.php         Z.48  (löscht acc_fehler)
+  → registrierung_form.php   Z.62  (löscht fehler)
+
+----------------------------------------------------------------
+FORMULAR-EINGABEN
+----------------------------------------------------------------
+
+$_SERVER['REQUEST_METHOD']
+  Prüft ob die Seite per POST aufgerufen wurde.
+  Falls nicht POST → Weiterleitung zum Formular.
+  → login.php                Z.7
+  → registrierung.php        Z.5
+  → account.php              Z.13
+
+$_POST[...]
+  Liest Formulardaten (POST-Methode).
+  → login.php                Z.13  ($_POST['username'])
+  → login.php                Z.14  ($_POST['password'])
+  → registrierung.php        Z.11  ($_POST['anrede'])   bis Z.23
+  → account.php              Z.19  ($_POST['vorname'])  bis Z.30
+
+$_FILES[...]
+  Liest hochgeladene Dateien.
+  → registrierung.php        Z.60  ($_FILES['dokument']['tmp_name'])
+  → account.php              Z.84  ($_FILES['profilbild']['tmp_name'])
+
+----------------------------------------------------------------
+STRING-FUNKTIONEN
+----------------------------------------------------------------
+
+trim()
+  Entfernt Leerzeichen am Anfang und Ende eines Strings.
+  → login.php                Z.13  (username)
+  → login.php                Z.14  (password)
+  → registrierung.php        Z.11  bis Z.23 (alle Felder)
+  → account.php              Z.19  bis Z.30 (alle Felder)
+
+empty()
+  Prüft ob eine Variable leer ist.
+  → login.php                Z.17  (username + passwort)
+  → registrierung.php        Z.27  bis Z.33 (Pflichtfelder)
+  → account.php              Z.34  (vorname, nachname)
+
+strlen()
+  Gibt die Länge eines Strings zurück.
+  Wird für Passwort-Mindestlänge (8 Zeichen) verwendet.
+  → registrierung.php        Z.40
+  → account.php              Z.38
+
+implode()
+  Verbindet Array-Elemente mit Trennzeichen zu einem String.
+  → account.php              Z.43  (Fehlermeldungen mit " | " verbinden)
+
+htmlspecialchars()
+  Wandelt HTML-Sonderzeichen um - verhindert XSS-Angriffe.
+  → account_form.php         Z.51  (in der esc()-Funktion)
+  → account_edit.php         Z.53  (in der esc()-Funktion)
+  → registrierung_form.php   Z.61  (direkt bei Fehlerausgabe)
+
+base64_encode()
+  Kodiert Binärdaten (Profilbild) für HTML-Einbettung.
+  → account_form.php         Z.108
+
+----------------------------------------------------------------
+VALIDIERUNG
+----------------------------------------------------------------
+
+filter_var($wert, FILTER_VALIDATE_EMAIL)
+  Prüft ob eine E-Mail-Adresse gültig ist.
+  → registrierung.php        Z.43
+  → account.php              Z.36
+
+preg_match('/^[0-9]{4}$/', $plz)
+  Regex: PLZ muss genau 4 Ziffern sein (Österreich).
+  → registrierung.php        Z.47
+  → account.php              Z.37
+
+in_array()
+  Prüft ob ein Wert in einem Array vorhanden ist.
+  Wird für erlaubte Datei-Typen verwendet.
+  → registrierung.php        Z.62  (PDF/JPG/PNG/GIF erlaubt)
+  → account.php              Z.86  (JPEG/PNG/GIF erlaubt)
+
+is_uploaded_file()
+  Prüft ob Datei wirklich per HTTP-Upload kam (Sicherheit).
+  → registrierung.php        Z.60
+  → account.php              Z.84
+
+----------------------------------------------------------------
+DATEI-FUNKTIONEN
+----------------------------------------------------------------
+
+file_get_contents()
+  Liest Dateiinhalt als Binary-String (für Speicherung in DB).
+  → registrierung.php        Z.68  (Dokument-Upload)
+  → account.php              Z.87  (Profilbild-Upload)
+
+----------------------------------------------------------------
+PASSWORT-FUNKTIONEN
+----------------------------------------------------------------
+
+define('PEPPER', 'K0nv0lt!c#P3pp3r_2026')
+  Definiert Konstante: geheimes Zusatz-Salz für Passwort-Hashing.
+  → login.php                Z.29
+  → registrierung.php        Z.104
+  → account.php              Z.101
+
+password_hash($passwort . PEPPER, PASSWORD_BCRYPT)
+  Erstellt sicheren bcrypt-Hash aus Passwort + Pepper.
+  → registrierung.php        Z.105
+  → account.php              Z.102
+
+password_verify($eingabe . PEPPER, $hash)
+  Prüft ob eingegebenes Passwort mit gespeichertem Hash übereinstimmt.
+  → login.php                Z.49
+
+----------------------------------------------------------------
+DATENBANK (PDO)
+----------------------------------------------------------------
+
+new PDO("mysql:host=...;dbname=...;charset=utf8mb4", ...)
+  Erstellt Datenbankverbindung zu MySQL.
+  → login.php                Z.31
+  → registrierung.php        Z.83
+  → account.php              Z.54
+  → account_form.php         Z.18
+  → account_edit.php         Z.20
+
+$pdo->prepare('SQL...')
+  Bereitet SQL-Statement vor - verhindert SQL-Injection.
+  → login.php                Z.43  (SELECT account)
+  → registrierung.php        Z.96  (SELECT e_mail Duplikat)
+  → registrierung.php        Z.114 (INSERT INTO kunde)
+  → registrierung.php        Z.122 (INSERT INTO account)
+  → account.php              Z.67  (SELECT kn_id)
+  → account.php              Z.88  (UPDATE account profilbild)
+  → account.php              Z.93  (UPDATE kunde)
+  → account.php              Z.97  (UPDATE account e_mail)
+  → account.php              Z.103 (UPDATE account passwort)
+  → account_form.php         Z.28  (SELECT alle User-Daten)
+  → account_edit.php         Z.28  (SELECT alle User-Daten)
+
+$stmt->execute([...])
+  Führt vorbereitete Abfrage mit Parametern aus.
+  → login.php                Z.44
+  → registrierung.php        Z.97, Z.116, Z.124
+  → account.php              Z.68, Z.89, Z.94, Z.98, Z.104
+  → account_form.php         Z.35
+  → account_edit.php         Z.36
+
+$stmt->fetch()
+  Holt eine einzelne Zeile aus dem Abfrage-Ergebnis.
+  → login.php                Z.45  (Account suchen)
+  → registrierung.php        Z.98  (E-Mail Duplikat prüfen)
+  → account.php              Z.69  (kn_id holen)
+  → account_form.php         Z.36  (User-Daten laden)
+  → account_edit.php         Z.37  (User-Daten laden)
+
+$pdo->lastInsertId()
+  Gibt die auto-increment ID des zuletzt eingefügten Datensatzes zurück.
+  → registrierung.php        Z.117 (kn_id nach INSERT in kunde)
+
+$pdo->beginTransaction()
+  Startet DB-Transaktion - mehrere Abfragen als Einheit (alles oder nichts).
+  → registrierung.php        Z.111
+  → account.php              Z.78
+
+$pdo->commit()
+  Bestätigt Transaktion - Änderungen werden dauerhaft gespeichert.
+  → registrierung.php        Z.126
+  → account.php              Z.107
+
+$pdo->rollBack()
+  Macht Transaktion rückgängig wenn ein Fehler passiert ist.
+  → registrierung.php        Z.128
+  → account.php              Z.109
+
+----------------------------------------------------------------
+AUSGABE & WEITERLEITUNG
+----------------------------------------------------------------
+
+header('Location: ...')
+  Leitet den Browser auf eine andere Seite weiter.
+  → login.php                Z.8   (→ login.html, kein POST)
+  → login.php                Z.18  (→ login.html?error=1, leere Felder)
+  → login.php                Z.38  (→ login.html?error=2, DB-Fehler)
+  → login.php                Z.51  (→ login.html?error=1, falsch PW)
+  → login.php                Z.59  (→ Website.html, Erfolg)
+  → registrierung.php        Z.6   (→ registrierung_form.php, kein POST)
+  → registrierung.php        Z.52  (→ registrierung_form.php, Validierung)
+  → registrierung.php        Z.64  (→ registrierung_form.php, Datei-Typ)
+  → registrierung.php        Z.68  (→ registrierung_form.php, Datei-Größe)
+  → registrierung.php        Z.91  (→ registrierung_form.php, DB-Fehler)
+  → registrierung.php        Z.98  (→ registrierung_form.php, E-Mail exist.)
+  → registrierung.php        Z.130 (→ registrierung_form.php, INSERT-Fehler)
+  → registrierung.php        Z.134 (→ login.html, Erfolg)
+  → logout.php               Z.6   (→ Website.html)
+  → account.php              Z.8   (→ login.html, nicht eingeloggt)
+  → account.php              Z.14  (→ account_form.php, kein POST)
+  → account.php              Z.45  (→ account_edit.php, Validierungsfehler)
+  → account.php              Z.62  (→ account_form.php, DB-Fehler)
+  → account.php              Z.111 (→ account_edit.php, UPDATE-Fehler)
+  → account.php              Z.117 (→ account_form.php, Erfolg)
+  → account_form.php         Z.8   (→ login.html, nicht eingeloggt)
+  → account_form.php         Z.42  (→ login.html, User nicht in DB)
+  → account_edit.php         Z.8   (→ login.html, nicht eingeloggt)
+  → account_edit.php         Z.44  (→ login.html, User nicht in DB)
+
+header('Content-Type: application/json')
+  Setzt den Antwort-Typ auf JSON.
+  → session_status.php       Z.3
+
+exit
+  Beendet das PHP-Script sofort. Immer nach header() nötig!
+  → login.php                Z.9, Z.19, Z.39, Z.52, Z.60
+  → registrierung.php        Z.7, Z.53, Z.65, Z.69, Z.92, Z.99, Z.131, Z.135
+  → logout.php               Z.7
+  → account.php              Z.9, Z.15, Z.46, Z.63, Z.112
+  → account_form.php         Z.9, Z.43
+  → account_edit.php         Z.9, Z.45
+
+echo
+  Gibt Text oder HTML aus.
+  → session_status.php       Z.4   (JSON-Ausgabe)
+  → account_form.php         (alle <?= ... ?> Ausgaben ab Z.101)
+  → account_edit.php         (alle <?= ... ?> Ausgaben ab Z.110)
+
+die()
+  Gibt Text aus und beendet Script sofort (bei kritischem DB-Fehler).
+  → account_form.php         Z.24
+  → account_edit.php         Z.25
+
+json_encode([...])
+  Wandelt PHP-Array in JSON-String um.
+  → session_status.php       Z.4   (['eingeloggt' => true/false])
+
+----------------------------------------------------------------
+KONTROLLSTRUKTUREN (in HTML-Templates)
+----------------------------------------------------------------
+
+if / else / endif
+  Bedingte Anzeige von HTML-Blöcken.
+  → registrierung_form.php   Z.17  (Login- oder Logout-Button anzeigen)
+  → registrierung_form.php   Z.20  (else-Zweig)
+  → registrierung_form.php   Z.23  (endif)
+  → registrierung_form.php   Z.56  (Fehlerbox anzeigen)
+  → account_form.php         Z.102 (Erfolgsmeldung anzeigen)
+  → account_form.php         Z.106 (Profilbild anzeigen)
+  → account_edit.php         Z.103 (Fehlermeldung anzeigen)
+
+foreach / endforeach
+  Schleife - geht alle Elemente eines Arrays durch.
+  → registrierung_form.php   Z.60  (gibt jeden Fehler als <li> aus)
+
+================================================================
