@@ -1,3 +1,6 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
 <!DOCTYPE html>
 <html lang="de">
 
@@ -52,9 +55,7 @@
             <h1>📋 Konto erstellen</h1>
             <p class="form-intro">Werden Sie Teil der Konvoltic-Community und profitieren Sie von exklusiven Angeboten, persönlichem Support und einem nachhaltigen Kundenkonto.</p>
 
-            <?php
-            if (session_status() === PHP_SESSION_NONE) session_start();
-            if (!empty($_SESSION['fehler'])): ?>
+            <?php if (!empty($_SESSION['fehler'])): ?>
                 <div class="fehler-box">
                     <ul style="margin:0; padding-left:18px;">
                         <?php foreach ($_SESSION['fehler'] as $f): ?>

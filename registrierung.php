@@ -114,9 +114,9 @@ try {
     $pdo->beginTransaction();
 
     // Kunde anlegen
-    $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße, dokument)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse, $dokument_db]);
+    $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse]);
     $kn_id = $pdo->lastInsertId();
 
     // Account anlegen (Benutzername = E-Mail oder Vorname+Nachname)
@@ -130,7 +130,7 @@ try {
     $pdo->commit();
 } catch (PDOException $e) {
     $pdo->rollBack();
-    $_SESSION['fehler'] = ['Registrierung fehlgeschlagen. Bitte erneut versuchen.'];
+    $_SESSION['fehler'] = ['DB-Fehler: ' . $e->getMessage()];
     header('Location: registrierung_form.php');
     exit;
 }

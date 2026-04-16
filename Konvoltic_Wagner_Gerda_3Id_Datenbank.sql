@@ -1,5 +1,5 @@
 create database Konvoltic;
-use Konvoltic;
+use konvolticdatenbank;
 
 create table kunde(
 kn_id int primary key not null auto_increment,

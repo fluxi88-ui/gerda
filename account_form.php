@@ -26,7 +26,7 @@ try {
 
 // alle user-daten aus der datenbank holen (join auf zwei tabellen weil warum einfach wenn's auch kompliziert geht)
 $stmt = $pdo->prepare('
-    SELECT a.benutzername, a.e_mail, a.profilbild,
+    SELECT a.benutzername, a.e_mail,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
            k.telefon, k.ort, k.plz, k.straße
     FROM account a
