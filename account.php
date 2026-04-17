@@ -79,8 +79,8 @@ try {
         ->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $ort, $plz_db, $strasse, $kn_id]);
 
     $email_db = !empty($email) ? $email : null;
-    $pdo->prepare('UPDATE account SET e_mail=?, benutzername=? WHERE acc_id=?')
-        ->execute([$email_db, !empty($email) ? $email : ($vorname . ' ' . $nachname), $_SESSION['acc_id']]);
+    $pdo->prepare('UPDATE account SET e_mail=? WHERE acc_id=?')
+        ->execute([$email_db, $_SESSION['acc_id']]);
 
     if (!empty($passwort_neu)) {
         define('PEPPER', 'K0nv0lt!c#P3pp3r_2026');

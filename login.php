@@ -39,10 +39,9 @@ try {
     exit;
 }
 
-// suche per benutzername ODER e-mail - der user kann beides verwenden zum einloggen
-// sehr fancy, sehr cool, sehr aufwendig
-$stmt = $pdo->prepare('SELECT acc_id, passwort FROM account WHERE benutzername = ? OR e_mail = ? LIMIT 1');
-$stmt->execute([$username, $username]);
+// suche nur per benutzername
+$stmt = $pdo->prepare('SELECT acc_id, passwort FROM account WHERE benutzername = ? LIMIT 1');
+$stmt->execute([$username]);
 $account = $stmt->fetch();
 
 // passwort prüfen - wenn kein account oder falsches passwort: error

@@ -12,6 +12,7 @@ $anrede    = trim($_POST['anrede']    ?? '');
 $vorname   = trim($_POST['vorname']   ?? '');
 $nachname  = trim($_POST['nachname']  ?? '');
 $geburtstag = trim($_POST['geburtstag'] ?? '');
+$benutzername = trim($_POST['benutzername'] ?? '');
 $email     = trim($_POST['email']     ?? '');
 $passwort  = trim($_POST['passwort']  ?? '');
 $passwort2 = trim($_POST['passwort2'] ?? '');
@@ -51,6 +52,20 @@ if (!empty($plz) && !preg_match('/^[0-9]{4}$/', $plz)) {
 
 if (!empty($fehler)) {
     $_SESSION['fehler'] = $fehler;
+    $_SESSION['reg_daten'] = [
+        'anrede'      => $anrede,
+        'vorname'     => $vorname,
+        'nachname'    => $nachname,
+        'geburtstag'  => $geburtstag,
+        'benutzername'=> $benutzername,
+        'email'       => $email,
+        'strasse'     => $strasse,
+        'hausnummer'  => $hausnummer,
+        'wohnort'     => $wohnort,
+        'plz'         => $plz,
+        'bundesland'  => $bundesland,
+        'telefon'     => $telefon,
+    ];
     header('Location: registrierung_form.php');
     exit;
 }
@@ -119,9 +134,6 @@ try {
     $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse]);
     $kn_id = $pdo->lastInsertId();
 
-    // Account anlegen (Benutzername = E-Mail oder Vorname+Nachname)
-    $benutzername = !empty($email) ? $email : ($vorname . ' ' . $nachname);
-    $email_db     = !empty($email) ? $email : null;
 
     $stmt = $pdo->prepare('INSERT INTO account (kn_id, benutzername, passwort, e_mail)
                            VALUES (?, ?, ?, ?)');
