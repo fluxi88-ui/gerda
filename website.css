@@ -1,8 +1,8 @@
 /* nur für die startseite - hier wird's bunt */
-/* → nur verwendet in: Website.html */
+/* → nur verwendet in: Index.html */
 
 /* hintergrundbild, bleibt fixiert beim scrollen */
-/* → Website.html – <body> */
+/* → Index.html – <body> */
 
 body {
     background-image: url('Images/Gemini_Generated_Image_63ugcn63ugcn63ug.png');
@@ -15,7 +15,7 @@ body {
 }
 
 /* der große imagebereich ganz oben */
-/* → Website.html – <section class="hero"> */
+/* → Index.html – <section class="hero"> */
 .hero {
     background-color: #e8f5e9;
 
@@ -27,7 +27,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* → Website.html – <div class="hero-badge"> in .hero */
+/* → Index.html – <div class="hero-badge"> in .hero */
 .hero-badge {
     display: inline-block;
     background-color: #a5d6a792;
@@ -39,7 +39,7 @@ body {
     margin-bottom: 16px;
 }
 
-/* → Website.html – <h1 class="hero-title"> und <span class="hero-accent"> in .hero */
+/* → Index.html – <h1 class="hero-title"> und <span class="hero-accent"> in .hero */
 .hero-title {
     color: #1b5e20;
     margin-bottom: 16px;
@@ -57,7 +57,7 @@ body {
     margin-bottom: 28px;
 }
 
-/* → Website.html – <div class="hero-ctas"> mit .hero-btn-primary und .hero-btn-secondary */
+/* → Index.html – <div class="hero-ctas"> mit .hero-btn-primary und .hero-btn-secondary */
 .hero-ctas {
     flex-wrap: wrap;
 }
@@ -93,7 +93,7 @@ body {
     text-decoration: none;
 }
 
-/* → Website.html – <div class="hero-orb"> in .hero-visual (das 🌍 Emoji) */
+/* → Index.html – <div class="hero-orb"> in .hero-visual (das 🌍 Emoji) */
 .hero-orb {
      border-radius: 50%;
     width: 140px;
@@ -104,13 +104,13 @@ body {
 }
 
 /* die kleinen abschnitte auf der startseite, muss man scrollen */
-/* → Website.html – <section class="home-section" id="warum|loesungen|visionen|produkte"> */
+/* → Index.html – <section class="home-section" id="warum|loesungen|visionen|produkte"> */
 .home-section {
     margin-bottom: 60px;
 }
 
 /* die drei karten warum wir so toll sind */
-/* → Website.html – <div class="feature-grid"> in <section id="warum"> */
+/* → Index.html – <div class="feature-grid"> in <section id="warum"> */
 .feature-grid {
     display: flex;
     gap: 20px;
@@ -144,7 +144,7 @@ body {
 }
 
 /* der grüne kasten mit der großen mission, klingt wichtig */
-/* → Website.html – <section class="mission-statement"> */
+/* → Index.html – <section class="mission-statement"> */
 .mission-statement {
     background-color: #e8f5e9;
     border-radius: 8px;
@@ -180,7 +180,7 @@ body {
 }
 
 /* die schritte wie wir arbeiten - schritt 1 2 3 fertig */
-/* → Website.html – <div class="steps-grid"> in <section id="loesungen"> */
+/* → Index.html – <div class="steps-grid"> in <section id="loesungen"> */
 .steps-grid {
     display: flex;
     gap: 20px;
@@ -213,7 +213,7 @@ body {
 }
 
 /* visionen als liste - klingt groß, ist aber nur text */
-/* → Website.html – <div class="vision-grid"> in <section id="visionen"> */
+/* → Index.html – <div class="vision-grid"> in <section id="visionen"> */
 .vision-grid {
     display: flex;
     flex-direction: column;
@@ -241,7 +241,7 @@ body {
 }
 
 /* vorschau der produkte als kläckbare karten */
-/* → Website.html – <div class="showcase-grid"> in <section id="produkte"> */
+/* → Index.html – <div class="showcase-grid"> in <section id="produkte"> */
 .showcase-grid {
     display: flex;
     gap: 16px;
@@ -282,7 +282,7 @@ body {
 }
 
 /* letzter bereich vor dem footer - grüner kasten mit button */
-/* → Website.html – <section id="greenit" class="greenit-cta"> */
+/* → Index.html – <section id="greenit" class="greenit-cta"> */
 .greenit-cta {
     background-color: #1b5e20;
     color: white;

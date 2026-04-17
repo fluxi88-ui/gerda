@@ -57,5 +57,5 @@ $_SESSION['acc_id']      = $account['acc_id'];
 $_SESSION['benutzername'] = $username;
 
 // und ab zur hauptseite!
-header('Location: Website.html');
+header('Location: Index.html');
 exit;

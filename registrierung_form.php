@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="Website.html">🏠 Home</a></li>
+                    <li><a href="Index.html">🏠 Home</a></li>
                     <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
                     <li><a href="Produkte.html">📦 Produkte</a></li>
                     <li><a href="Loesungen.html">🔧 Lösungen</a></li>
@@ -44,7 +44,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     <header>
         <div class="logo-container">
-            <a href="Website.html">
+            <a href="Index.html">
                 <img src="Images/KonvolticLogobeschnitten.png" alt="Konvoltic Logo" class="logo">
             </a>
         </div>
@@ -208,7 +208,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <footer>
         <div class="footer-content">
             <nav class="footer-nav">
-                <a href="Website.html">Home</a>
+                <a href="Index.html">Home</a>
                 <a href="Impressum.html">Impressum</a>
             </nav>
             <p><small>&copy; 2026 by Gerda Wagner | Christoph Oberholzer | Leon Oswald | Konvoltic OG</small></p>
