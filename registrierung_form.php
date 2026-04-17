@@ -101,6 +101,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                             placeholder="TT.MM.JJJJ">
                     </div>
 
+                    <div class ="form-group">
+                        <label for="benutzername">Benutzername *</label>
+                        <input type="text" id="benutzername" name="benutzername"
+                            placeholder="z. B. Mastemind"
+                            required>
+                    </div>
+
                     <div class="form-group">
                         <label for="email">E-Mail *</label>
                         <input type="email" id="email" name="email"
