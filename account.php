@@ -84,6 +84,28 @@ try {
             ->execute([$hash, $_SESSION['acc_id']]);
     }
 
+    // Profilbild – nur aktualisieren wenn eine neue Datei hochgeladen wurde
+    if (!empty($_FILES['profilbild']['tmp_name']) && is_uploaded_file($_FILES['profilbild']['tmp_name'])) {
+        $erlaubte_typen = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mime  = $finfo->file($_FILES['profilbild']['tmp_name']);
+        if (!in_array($mime, $erlaubte_typen)) {
+            $pdo->rollBack();
+            $_SESSION['acc_fehler'] = 'Nur JPG, PNG, GIF oder WEBP als Profilbild erlaubt.';
+            header('Location: account_edit.php');
+            exit;
+        }
+        if ($_FILES['profilbild']['size'] > 2 * 1024 * 1024) {
+            $pdo->rollBack();
+            $_SESSION['acc_fehler'] = 'Profilbild darf maximal 2 MB groß sein.';
+            header('Location: account_edit.php');
+            exit;
+        }
+        $bild = file_get_contents($_FILES['profilbild']['tmp_name']);
+        $pdo->prepare('UPDATE account SET profilbild=? WHERE acc_id=?')
+            ->execute([$bild, $_SESSION['acc_id']]);
+    }
+
     $pdo->commit();
 } catch (PDOException $e) {
     $pdo->rollBack();

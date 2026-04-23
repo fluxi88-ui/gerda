@@ -23,7 +23,7 @@ try {
 
 // jetzt holen wir alle daten des users aus der db - benutzername, email, und ganzen kram
 $stmt = $pdo->prepare('
-    SELECT a.benutzername, a.e_mail,
+    SELECT a.benutzername, a.e_mail, a.profilbild,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
            k.telefon, k.ort, k.plz, k.straße
     FROM account a
@@ -182,6 +182,28 @@ function esc(string $v): string {
                         <input type="password" id="passwort_neu2" name="passwort_neu2"
                                placeholder="Passwort wiederholen">
                     </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>🖼️ Profilbild</legend>
+
+                    <?php if (!empty($user['profilbild'])): ?>
+                    <?php $finfo = new finfo(FILEINFO_MIME_TYPE); $mime = $finfo->buffer($user['profilbild']); ?>
+                    <div style="margin-bottom:12px;">
+                        <p style="margin-bottom:6px;font-size:0.9rem;color:#555;">Aktuelles Profilbild:</p>
+                        <img src="data:<?= htmlspecialchars($mime) ?>;base64,<?= base64_encode($user['profilbild']) ?>"
+                             alt="Profilbild" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:2px solid #43a047;">
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="form-group">
+                        <label for="profilbild">Neues Profilbild hochladen</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+                        <input type="file" id="profilbild" name="profilbild"
+                               accept="image/jpeg,image/png,image/gif,image/webp">
+                        <small style="color:#888">Erlaubt: JPG, PNG, GIF, WEBP – max. 2 MB. Leer lassen = nicht ändern.</small>
+                    </div>
+
                 </fieldset>
 
                 <p class="pflicht-hinweis">* Pflichtfelder</p>

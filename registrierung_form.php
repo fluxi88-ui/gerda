@@ -199,16 +199,16 @@ function rv(string $key, array $d): string {
                     </div>
                 </fieldset>
 
-                <!-- Abschnitt 3: Datei -->
+                <!-- Abschnitt 3: Profilbild -->
                 <fieldset>
-                    <legend>📎 Dokument</legend>
+                    <legend>🖼️ Profilbild</legend>
 
                     <div class="form-group">
-                        <label for="dokument">Dokument hochladen</label>
+                        <label for="dokument">Profilbild hochladen (optional)</label>
                         <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
                         <input type="file" id="dokument" name="dokument"
-                               accept="application/pdf,image/jpeg,image/png,image/gif">
-                        <small style="color:#888">Erlaubt: PDF, JPG, PNG, GIF – max. 2 MB</small>
+                               accept="image/jpeg,image/png,image/gif,image/webp">
+                        <small style="color:#888">Erlaubt: JPG, PNG, GIF, WEBP – max. 2 MB</small>
                     </div>
 
                 </fieldset>

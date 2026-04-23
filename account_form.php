@@ -23,7 +23,7 @@ try {
 
 // alle user-daten aus der datenbank holen (join auf zwei tabellen weil warum einfach wenn's auch kompliziert geht)
 $stmt = $pdo->prepare('
-    SELECT a.benutzername, a.e_mail,
+    SELECT a.benutzername, a.e_mail, a.profilbild,
            k.anrede, k.vorname, k.nachname, k.geburtstag,
            k.telefon, k.ort, k.plz, k.straße
     FROM account a
@@ -101,8 +101,9 @@ function esc(string $v): string {
             <?php endif; ?>
 
             <?php if (!empty($user['profilbild'])): ?>
+            <?php $finfo = new finfo(FILEINFO_MIME_TYPE); $mime = $finfo->buffer($user['profilbild']); ?>
             <div style="text-align:center; margin-bottom:20px;">
-                <img src="data:image/jpeg;base64,<?= base64_encode($user['profilbild']) ?>"
+                <img src="data:<?= htmlspecialchars($mime) ?>;base64,<?= base64_encode($user['profilbild']) ?>"
                      alt="Profilbild" style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid #43a047;">
             </div>
             <?php endif; ?>

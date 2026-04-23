@@ -25,6 +25,7 @@ r_land varchar(50),
 r_ort varchar(50),
 r_plz int (10),
 r_straße varchar(50),
+profilbild LONGBLOB,
 foreign key (kn_id)references kunde(kn_id) on delete cascade);
 
 create table bestellung(

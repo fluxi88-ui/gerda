@@ -70,12 +70,14 @@ if (!empty($fehler)) {
     exit;
 }
 
-// Dokument-Datei einlesen (optional)
-$dokument_db = null;
+// Profilbild einlesen (optional)
+$profilbild_db = null;
 if (!empty($_FILES['dokument']['tmp_name']) && is_uploaded_file($_FILES['dokument']['tmp_name'])) {
-    $erlaubte_typen = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif'];
-    if (!in_array($_FILES['dokument']['type'], $erlaubte_typen)) {
-        $_SESSION['fehler'] = ['Nur PDF, JPG, PNG oder GIF erlaubt.'];
+    $erlaubte_typen = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime  = $finfo->file($_FILES['dokument']['tmp_name']);
+    if (!in_array($mime, $erlaubte_typen)) {
+        $_SESSION['fehler'] = ['Nur JPG, PNG, GIF oder WEBP als Profilbild erlaubt.'];
         header('Location: registrierung_form.php');
         exit;
     }
@@ -84,7 +86,7 @@ if (!empty($_FILES['dokument']['tmp_name']) && is_uploaded_file($_FILES['dokumen
         header('Location: registrierung_form.php');
         exit;
     }
-    $dokument_db = file_get_contents($_FILES['dokument']['tmp_name']);
+    $profilbild_db = file_get_contents($_FILES['dokument']['tmp_name']);
 }
 
 require_once __DIR__ . '/config.php';
@@ -131,9 +133,9 @@ try {
     $kn_id = $pdo->lastInsertId();
 
 
-    $stmt = $pdo->prepare('INSERT INTO account (kn_id, benutzername, passwort, e_mail)
-                           VALUES (?, ?, ?, ?)');
-    $stmt->execute([$kn_id, $benutzername, $passwort_hash, $email]);
+    $stmt = $pdo->prepare('INSERT INTO account (kn_id, benutzername, passwort, e_mail, profilbild)
+                           VALUES (?, ?, ?, ?, ?)');
+    $stmt->execute([$kn_id, $benutzername, $passwort_hash, $email, $profilbild_db]);
 
     $pdo->commit();
 } catch (PDOException $e) {
