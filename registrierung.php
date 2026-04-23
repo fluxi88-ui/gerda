@@ -87,14 +87,10 @@ if (!empty($_FILES['dokument']['tmp_name']) && is_uploaded_file($_FILES['dokumen
     $dokument_db = file_get_contents($_FILES['dokument']['tmp_name']);
 }
 
-// Datenbankverbindung
-$host   = 'moneyboykonvoltic.mysql.database.azure.com';
-$dbname = 'konvolticdatenbank';
-$dbuser = 'Einhorn';
-$dbpass = 'H3l3N4!!!!';
+require_once __DIR__ . '/config.php';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [
+    $pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
@@ -117,8 +113,6 @@ if (!empty($email)) {
 }
 
 // Passwort hashen (Pepper + bcrypt Salt)
-// Pepper: geheimer Wert der NICHT in der Datenbank gespeichert wird
-define('PEPPER', 'K0nv0lt!c#P3pp3r_2026');
 $passwort_hash = password_hash($passwort . PEPPER, PASSWORD_BCRYPT);
 
 // Geburtstag: leerer String → NULL

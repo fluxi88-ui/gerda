@@ -44,14 +44,10 @@ if (!empty($fehler)) {
     exit;
 }
 
-// datenbankzugang - bitte nicht weitersagen dass das passwort leer ist :)
-$host   = 'moneyboykonvoltic.mysql.database.azure.com';
-$dbname = 'konvolticdatenbank';
-$dbuser = 'Einhorn';
-$dbpass = 'H3l3N4!!!!';
+require_once __DIR__ . '/config.php';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [
+    $pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
@@ -83,7 +79,6 @@ try {
         ->execute([$email_db, $_SESSION['acc_id']]);
 
     if (!empty($passwort_neu)) {
-        define('PEPPER', 'K0nv0lt!c#P3pp3r_2026');
         $hash = password_hash($passwort_neu . PEPPER, PASSWORD_BCRYPT);
         $pdo->prepare('UPDATE account SET passwort=? WHERE acc_id=?')
             ->execute([$hash, $_SESSION['acc_id']]);

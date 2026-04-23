@@ -19,17 +19,10 @@ if (empty($username) || empty($passwort)) {
     exit;
 }
 
-$host   = 'moneyboykonvoltic.mysql.database.azure.com';
-$dbname = 'konvolticdatenbank';
-$dbuser = 'Einhorn';
-$dbpass = 'H3l3N4!!!!';
-
-// der pepper ist ein geheimes extra-gewürz für das passwort-hashing
-// damit auch wenn die db geklaut wird niemand einfach so die passwörter knackt
-define('PEPPER', 'K0nv0lt!c#P3pp3r_2026');
+require_once __DIR__ . '/config.php';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [
+    $pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4', DB_USER, DB_PASS, [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,

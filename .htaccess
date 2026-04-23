@@ -1,0 +1,5 @@
+# config.php darf NIEMALS direkt im Browser geöffnet werden
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
