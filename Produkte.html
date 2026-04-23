@@ -7,6 +7,7 @@
     <title>Konvoltic – Produkte</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="produkte.css">
+    <link rel="stylesheet" href="warenkorb.css">
 </head>
 
 <!-- alle produkte auf einen blick -->
@@ -30,6 +31,9 @@
             }
         });
         </script>
+        <button class="wk-icon-btn" onclick="oeffneWarenkorb()" title="Warenkorb öffnen">
+            🛒 Warenkorb <span class="wk-badge" id="wk-badge">0</span>
+        </button>
         <div class="meta-nav">
             <div class="custom-dropdown">
                 <button class="dropdown-toggle">
@@ -88,7 +92,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">ab 1.290 € <span>/ Stück</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="greenserver-s1" data-name="GreenServer S1" data-price="1290" data-pricetext="ab 1.290 €" data-unit="/ Stück" data-emoji="🖥️">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -104,7 +108,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">ab 4.800 € <span>/ Stück</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="greenserver-pro" data-name="GreenServer Pro X" data-price="4800" data-pricetext="ab 4.800 €" data-unit="/ Stück" data-emoji="🗄️">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -120,7 +124,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">ab 690 € <span>/ Set</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="refurbished-rack" data-name="Refurbished Rack-Set" data-price="690" data-pricetext="ab 690 €" data-unit="/ Set" data-emoji="♻️">🛒 In den Warenkorb</button>
                 </div>
             </div>
         </div>
@@ -141,7 +145,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">29 € <span>/ Monat</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="greencloud-starter" data-name="GreenCloud Starter" data-price="29" data-pricetext="29 €" data-unit="/ Monat" data-emoji="☁️">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -156,7 +160,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">149 € <span>/ Monat</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="greencloud-business" data-name="GreenCloud Business" data-price="149" data-pricetext="149 €" data-unit="/ Monat" data-emoji="🌐">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -192,7 +196,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">ab 890 € <span>/ Projekt</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="greenit-audit" data-name="Green-IT Audit" data-price="890" data-pricetext="ab 890 €" data-unit="/ Projekt" data-emoji="📊">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -208,7 +212,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">ab 2.400 € <span>/ Paket</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="implementierungspaket" data-name="Implementierungspaket" data-price="2400" data-pricetext="ab 2.400 €" data-unit="/ Paket" data-emoji="🛠️">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -224,7 +228,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">79 € <span>/ Monat</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="energie-monitoring" data-name="Energie-Monitoring Abo" data-price="79" data-pricetext="79 €" data-unit="/ Monat" data-emoji="📈">🛒 In den Warenkorb</button>
                 </div>
             </div>
         </div>
@@ -245,7 +249,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">12 € <span>/ Woche</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="hydroponik-salate" data-name="Hydroponik-Salate (Saisonbox)" data-price="12" data-pricetext="12 €" data-unit="/ Woche" data-emoji="🥬">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -261,7 +265,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="card-price">18 € <span>/ Woche</span></div>
-                    <a href="Beratung.html" class="card-btn">Anfragen →</a>
+                    <button class="wk-btn" data-id="kraeuter-abo" data-name="Kräuter-Abo Premium" data-price="18" data-pricetext="18 €" data-unit="/ Woche" data-emoji="🌿">🛒 In den Warenkorb</button>
                 </div>
             </div>
             <div class="catalog-card">
@@ -304,5 +308,199 @@
         </div>
     </footer>
 
+    <!-- WARENKORB OVERLAY -->
+    <div class="wk-overlay" id="wk-overlay"></div>
+
+    <!-- WARENKORB DRAWER -->
+    <aside class="wk-drawer" id="wk-drawer" aria-label="Warenkorb">
+        <div class="wk-drawer-header">
+            <h2>🛒 Warenkorb</h2>
+            <button class="wk-close-btn" onclick="schliesseWarenkorb()" aria-label="Warenkorb schließen">✕</button>
+        </div>
+        <div class="wk-liste" id="wk-liste">
+            <p class="wk-leer">Ihr Warenkorb ist leer.</p>
+        </div>
+        <div class="wk-footer" id="wk-footer" style="display:none">
+            <div class="wk-gesamt-zeile">
+                <span>Richtwert gesamt:</span>
+                <strong id="wk-gesamt-preis"></strong>
+            </div>
+            <p class="wk-hinweis">* Endgültige Preise nach individueller Abstimmung. Angaben unverbindlich.</p>
+            <button class="wk-anfrage-btn" onclick="sendeAnfrage()">📩 Anfrage per E-Mail senden</button>
+            <button class="wk-leeren-btn" onclick="leerenWarenkorb()">🗑️ Warenkorb leeren</button>
+        </div>
+    </aside>
+
+    <!-- FEEDBACK TOAST -->
+    <div class="wk-toast" id="wk-toast"></div>
+
+    <script>
+    /* =========================================================
+       Warenkorb – localStorage-basiert
+    ========================================================= */
+    (function () {
+        const CART_KEY      = 'konvoltic_warenkorb';
+        const MAIL_ADDRESS  = 'gerda.wagner@yahoo.com';
+
+        /* --- Hilfsfunktionen --- */
+        function getCart()       { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+        function saveCart(cart)  { localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
+
+        /* --- Artikel hinzufügen --- */
+        function addToCart(id, name, price, pricetext, unit, emoji) {
+            const cart = getCart();
+            const existing = cart.find(function(i){ return i.id === id; });
+            if (existing) {
+                existing.menge++;
+            } else {
+                cart.push({ id: id, name: name, price: price, pricetext: pricetext, unit: unit, emoji: emoji, menge: 1 });
+            }
+            saveCart(cart);
+            zeigeToast('✓ ' + name + ' hinzugefügt');
+        }
+
+        /* --- Menge ändern --- */
+        window.changeQuantity = function(id, delta) {
+            const cart = getCart();
+            const item = cart.find(function(i){ return i.id === id; });
+            if (!item) return;
+            item.menge += delta;
+            if (item.menge <= 0) {
+                saveCart(cart.filter(function(i){ return i.id !== id; }));
+            } else {
+                saveCart(cart);
+            }
+        };
+
+        /* --- Artikel entfernen --- */
+        window.removeFromCart = function(id) {
+            saveCart(getCart().filter(function(i){ return i.id !== id; }));
+        };
+
+        /* --- Warenkorb leeren --- */
+        window.leerenWarenkorb = function() {
+            saveCart([]);
+        };
+
+        /* --- Drawer öffnen/schließen --- */
+        window.oeffneWarenkorb = function() {
+            document.getElementById('wk-drawer').classList.add('offen');
+            document.getElementById('wk-overlay').classList.add('aktiv');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.schliesseWarenkorb = function() {
+            document.getElementById('wk-drawer').classList.remove('offen');
+            document.getElementById('wk-overlay').classList.remove('aktiv');
+            document.body.style.overflow = '';
+        };
+
+        /* --- Cart rendern --- */
+        function renderCart() {
+            const cart   = getCart();
+            const count  = cart.reduce(function(s,i){ return s + i.menge; }, 0);
+            const total  = cart.reduce(function(s,i){ return s + i.price * i.menge; }, 0);
+
+            // Badge
+            var badge = document.getElementById('wk-badge');
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'flex' : 'none';
+            }
+
+            var listeEl  = document.getElementById('wk-liste');
+            var footerEl = document.getElementById('wk-footer');
+            if (!listeEl) return;
+
+            if (cart.length === 0) {
+                listeEl.innerHTML = '<p class="wk-leer">Ihr Warenkorb ist leer.</p>';
+                if (footerEl) footerEl.style.display = 'none';
+                return;
+            }
+
+            listeEl.innerHTML = cart.map(function(item) {
+                return '<div class="wk-item">' +
+                    '<div class="wk-item-emoji">' + item.emoji + '</div>' +
+                    '<div class="wk-item-info">' +
+                        '<div class="wk-item-name">' + item.name + '</div>' +
+                        '<div class="wk-item-preis">' + item.pricetext + ' ' + item.unit + '</div>' +
+                    '</div>' +
+                    '<div class="wk-item-menge">' +
+                        '<button class="wk-menge-btn" onclick="changeQuantity(\'' + item.id + '\', -1)">−</button>' +
+                        '<span>' + item.menge + '</span>' +
+                        '<button class="wk-menge-btn" onclick="changeQuantity(\'' + item.id + '\', 1)">+</button>' +
+                    '</div>' +
+                    '<button class="wk-item-remove" onclick="removeFromCart(\'' + item.id + '\')" title="Entfernen">✕</button>' +
+                '</div>';
+            }).join('');
+
+            if (footerEl) {
+                footerEl.style.display = 'block';
+                document.getElementById('wk-gesamt-preis').textContent = 'ab ' + total.toLocaleString('de-AT') + ' €';
+            }
+        }
+
+        /* --- Anfrage per E-Mail --- */
+        window.sendeAnfrage = function() {
+            var cart = getCart();
+            if (cart.length === 0) return;
+
+            var total   = cart.reduce(function(s,i){ return s + i.price * i.menge; }, 0);
+            var betreff = 'Produktanfrage – Warenkorb Konvoltic OG';
+
+            var body = 'Guten Tag,\n\n' +
+                'hiermit möchte ich folgende Produkte aus dem Onlinekatalog anfragen:\n\n' +
+                '── WARENKORB ──────────────────────────────\n';
+
+            cart.forEach(function(item) {
+                body += item.emoji + ' ' + item.name + '\n';
+                body += '   Menge:  ' + item.menge + 'x\n';
+                body += '   Preis:  ' + item.pricetext + ' ' + item.unit + '\n\n';
+            });
+
+            body += '── RICHTWERT GESAMT ────────────────────────\n';
+            body += 'ab ' + total.toLocaleString('de-AT') + ' €\n\n';
+            body += '────────────────────────────────────────────\n';
+            body += 'Bitte nehmen Sie Kontakt mit mir auf, um ein verbindliches Angebot zu erhalten.\n\n';
+            body += 'Mit freundlichen Grüßen';
+
+            window.location.href = 'mailto:' + MAIL_ADDRESS +
+                '?subject=' + encodeURIComponent(betreff) +
+                '&body='    + encodeURIComponent(body);
+        };
+
+        /* --- Toast --- */
+        function zeigeToast(msg) {
+            var toast = document.getElementById('wk-toast');
+            if (!toast) return;
+            toast.textContent = msg;
+            toast.classList.add('sichtbar');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(function(){ toast.classList.remove('sichtbar'); }, 2200);
+        }
+
+        /* --- Buttons verdrahten --- */
+        document.querySelectorAll('.wk-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var d = btn.dataset;
+                addToCart(d.id, d.name, parseFloat(d.price), d.pricetext, d.unit, d.emoji);
+                btn.classList.add('hinzugefuegt');
+                setTimeout(function(){ btn.classList.remove('hinzugefuegt'); }, 400);
+            });
+        });
+
+        /* Overlay-Klick schließt Drawer */
+        document.getElementById('wk-overlay').addEventListener('click', schliesseWarenkorb);
+
+        /* ESC-Taste schließt Drawer */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') schliesseWarenkorb();
+        });
+
+        /* Init */
+        renderCart();
+
+    })();
+    </script>
 
 </body>
