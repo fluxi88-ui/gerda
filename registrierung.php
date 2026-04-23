@@ -131,7 +131,7 @@ try {
 
     $stmt = $pdo->prepare('INSERT INTO account (kn_id, benutzername, passwort, e_mail)
                            VALUES (?, ?, ?, ?)');
-    $stmt->execute([$kn_id, $benutzername, $passwort_hash, $email_db]);
+    $stmt->execute([$kn_id, $benutzername, $passwort_hash, $email]);
 
     $pdo->commit();
 } catch (PDOException $e) {
