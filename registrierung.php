@@ -118,6 +118,8 @@ $passwort_hash = password_hash($passwort . PEPPER, PASSWORD_BCRYPT);
 // Geburtstag: leerer String → NULL
 $geburtstag_db = (!empty($geburtstag)) ? $geburtstag : null;
 $plz_db        = (!empty($plz)) ? (int)$plz : null;
+// Hausnummer an Straße anhängen falls angegeben
+$strasse_db    = !empty($hausnummer) ? $strasse . ' ' . $hausnummer : $strasse;
 
 try {
     $pdo->beginTransaction();
@@ -125,7 +127,7 @@ try {
     // Kunde anlegen
     $stmt = $pdo->prepare('INSERT INTO kunde (anrede, vorname, nachname, geburtstag, telefon, ort, plz, straße)
                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse]);
+    $stmt->execute([$anrede, $vorname, $nachname, $geburtstag_db, $telefon, $wohnort, $plz_db, $strasse_db]);
     $kn_id = $pdo->lastInsertId();
 
 
