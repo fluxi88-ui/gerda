@@ -1,2 +1,3 @@
-# Geheime Konfiguration - NIEMALS commiten!
-config.php
+# config.php wird deployed, Zugangsdaten kommen aus Azure App Settings (Umgebungsvariablen)
+# config.php
+
