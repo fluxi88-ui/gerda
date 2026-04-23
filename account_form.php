@@ -113,6 +113,14 @@ function esc(string $v): string {
                     <span>👤 Persönliche Daten</span>
                     <a href="account_edit.php" class="acc-edit-btn">✏️ Daten bearbeiten</a>
                 </div>
+                <?php
+                $admin_users = ['admin', 'gerda', 'Gerda'];
+                if (in_array($_SESSION['benutzername'] ?? '', $admin_users)):
+                ?>
+                <div style="margin: 10px 0 0;">
+                    <a href="login_log.php" style="font-size:13px;color:#2e7d32;">🔐 Login-Log ansehen</a>
+                </div>
+                <?php endif; ?>
                 <dl class="acc-dl">
                     <dt>Anrede</dt>
                     <dd><?= esc(ucfirst($user['anrede'] ?? '–')) ?></dd>

@@ -32,6 +32,24 @@ try {
     exit;
 }
 
+// IP ermitteln (auch hinter Proxies / Azure)
+function get_ip(): string {
+    foreach (['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR'] as $key) {
+        if (!empty($_SERVER[$key])) {
+            $ip = trim(explode(',', $_SERVER[$key])[0]);
+            if (filter_var($ip, FILTER_VALIDATE_IP)) return $ip;
+        }
+    }
+    return 'unbekannt';
+}
+
+function log_versuch(PDO $pdo, string $user, bool $erfolg): void {
+    $ip         = get_ip();
+    $user_agent = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 500);
+    $pdo->prepare('INSERT INTO login_log (benutzername, ip, erfolgreich, user_agent) VALUES (?, ?, ?, ?)')
+        ->execute([$user, $ip, $erfolg ? 1 : 0, $user_agent]);
+}
+
 // suche nur per benutzername
 $stmt = $pdo->prepare('SELECT acc_id, passwort FROM account WHERE benutzername = ? LIMIT 1');
 $stmt->execute([$username]);
@@ -40,11 +58,13 @@ $account = $stmt->fetch();
 // passwort prüfen - wenn kein account oder falsches passwort: error
 // wir sagen nicht ob user oder passwort falsch war - sicherheit!!
 if (!$account || !password_verify($passwort . PEPPER, $account['passwort'])) {
+    log_versuch($pdo, $username, false);
     header('Location: login.html?error=1');
     exit;
 }
 
 // login erfolgreich!! user-id in die session speichern
+log_versuch($pdo, $username, true);
 $_SESSION['acc_id']      = $account['acc_id'];
 $_SESSION['benutzername'] = $username;
 

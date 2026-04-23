@@ -28,6 +28,14 @@ r_straße varchar(50),
 profilbild LONGBLOB,
 foreign key (kn_id)references kunde(kn_id) on delete cascade);
 
+create table login_log(
+log_id int primary key not null auto_increment,
+benutzername varchar(150) not null,
+ip varchar(45) not null,
+zeitpunkt datetime not null default current_timestamp,
+erfolgreich tinyint(1) not null,
+user_agent varchar(500));
+
 create table bestellung(
 bestell_id int primary key not null auto_increment,
 acc_id int not null,
