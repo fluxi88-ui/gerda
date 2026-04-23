@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Konvoltic OG | Beratung & Terminbuchung</title>
+    <meta name="description" content="Buchen Sie jetzt Ihren persönlichen Beratungstermin bei Konvoltic OG – nachhaltige Green IT Beratung.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="beratung.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <nav class="top-bar">
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="login-btn" id="btn-login">Login</a>
+            <a href="registrierung_form.php" class="register-btn" id="btn-register">Registrieren</a>
+            <a href="account_form.php" class="home-btn" id="btn-konto" style="display:none">Mein Konto</a>
+            <a href="logout.php" class="logout-btn" id="btn-logout" style="display:none">Abmelden</a>
+        </div>
+        <script>
+        fetch('session_status.php').then(r=>r.json()).then(d=>{
+            if(d.eingeloggt){
+                document.getElementById('btn-login').style.display='none';
+                document.getElementById('btn-register').style.display='none';
+                document.getElementById('btn-konto').style.display='';
+                document.getElementById('btn-logout').style.display='';
+            }
+        });
+        </script>
+        <div class="meta-nav">
+            <div class="custom-dropdown">
+                <button class="dropdown-toggle">
+                    <span>☰ Menü</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="Index.html">🏠 Home</a></li>
+                    <li><a href="Kreislauf.html">♻️ Kreislauf</a></li>
+                    <li><a href="Produkte.html">📦 Produkte</a></li>
+                    <li><a href="Loesungen.html">🔧 Lösungen</a></li>
+                    <li><a href="Beratung.html">📅 Beratung</a></li>
+                    <li><a href="Impressum.html">📄 Impressum</a></li>
+                    <li><a href="account_form.php">👤 Mein Konto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="beratung-header">
+        <div class="header-inner">
+            <div class="header-badge">🌿 Persönliche Green IT Beratung</div>
+            <h1>Termin buchen</h1>
+            <p>Wählen Sie einen Wunschtermin und wir melden uns umgehend bei Ihnen.<br>
+               Unsere Expert:innen beraten Sie zu energieeffizienten IT-Lösungen.</p>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="beratung-main">
+
+        <!-- VORTEILE -->
+        <section class="vorteile-section">
+            <div class="vorteile-grid">
+                <div class="vorteil-card">
+                    <span class="vorteil-icon">🌱</span>
+                    <h3>Nachhaltige IT</h3>
+                    <p>Wir zeigen Ihnen, wie Sie Ihren CO₂-Fußabdruck mit grüner IT deutlich reduzieren.</p>
+                </div>
+                <div class="vorteil-card">
+                    <span class="vorteil-icon">💡</span>
+                    <h3>Individuelle Lösungen</h3>
+                    <p>Jede Beratung ist auf Ihr Unternehmen zugeschnitten – keine Pauschalangebote.</p>
+                </div>
+                <div class="vorteil-card">
+                    <span class="vorteil-icon">📊</span>
+                    <h3>Kostenersparnis</h3>
+                    <p>Energieeffiziente Systeme senken Ihre Betriebskosten dauerhaft.</p>
+                </div>
+                <div class="vorteil-card">
+                    <span class="vorteil-icon">🤝</span>
+                    <h3>Persönlich & kompetent</h3>
+                    <p>Unser Team steht Ihnen von der Planung bis zur Umsetzung zur Seite.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BUCHUNGSBEREICH -->
+        <section class="buchung-section">
+            <div class="buchung-container">
+
+                <!-- KALENDER -->
+                <div class="kalender-bereich">
+                    <h2>1. Datum wählen</h2>
+                    <div class="kalender-box">
+                        <div class="kalender-nav">
+                            <button id="prev-month" class="kal-nav-btn" aria-label="Vorheriger Monat">&#8249;</button>
+                            <span id="monat-jahr"></span>
+                            <button id="next-month" class="kal-nav-btn" aria-label="Nächster Monat">&#8250;</button>
+                        </div>
+                        <div class="kalender-wochentage">
+                            <span>Mo</span><span>Di</span><span>Mi</span>
+                            <span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+                        </div>
+                        <div class="kalender-tage" id="kalender-tage"></div>
+                    </div>
+
+                    <!-- UHRZEIT -->
+                    <div class="uhrzeit-bereich" id="uhrzeit-bereich" style="display:none">
+                        <h2>2. Uhrzeit wählen</h2>
+                        <div class="uhrzeiten-grid" id="uhrzeiten-grid"></div>
+                    </div>
+                </div>
+
+                <!-- FORMULAR -->
+                <div class="formular-bereich">
+                    <h2>3. Ihre Daten</h2>
+                    <div class="ausgewaehlt-info" id="ausgewaehlt-info" style="display:none">
+                        <span>📅 Ausgewählter Termin: </span>
+                        <strong id="termin-anzeige"></strong>
+                    </div>
+
+                    <form id="buchungs-formular" novalidate>
+                        <div class="form-gruppe">
+                            <label for="anrede">Anrede</label>
+                            <select id="anrede" name="anrede" required>
+                                <option value="">– bitte wählen –</option>
+                                <option value="Frau">Frau</option>
+                                <option value="Herr">Herr</option>
+                                <option value="Divers">Divers / keine Angabe</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-gruppe">
+                                <label for="vorname">Vorname <span class="pflicht">*</span></label>
+                                <input type="text" id="vorname" name="vorname" placeholder="Max" required>
+                            </div>
+                            <div class="form-gruppe">
+                                <label for="nachname">Nachname <span class="pflicht">*</span></label>
+                                <input type="text" id="nachname" name="nachname" placeholder="Mustermann" required>
+                            </div>
+                        </div>
+
+                        <div class="form-gruppe">
+                            <label for="email">E-Mail <span class="pflicht">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="max@beispiel.at" required>
+                        </div>
+
+                        <div class="form-gruppe">
+                            <label for="telefon">Telefon (optional)</label>
+                            <input type="tel" id="telefon" name="telefon" placeholder="+43 1 234 567">
+                        </div>
+
+                        <div class="form-gruppe">
+                            <label for="unternehmen">Unternehmen (optional)</label>
+                            <input type="text" id="unternehmen" name="unternehmen" placeholder="Muster GmbH">
+                        </div>
+
+                        <div class="form-gruppe">
+                            <label for="beratungsart">Beratungsthema <span class="pflicht">*</span></label>
+                            <select id="beratungsart" name="beratungsart" required>
+                                <option value="">– bitte wählen –</option>
+                                <option value="Green IT Allgemein">🌱 Green IT – Allgemein</option>
+                                <option value="Energieeffiziente Server">⚡ Energieeffiziente Server</option>
+                                <option value="Cloud-Lösungen">☁️ Nachhaltige Cloud-Lösungen</option>
+                                <option value="Hardware Refurbishing">♻️ Hardware Refurbishing</option>
+                                <option value="CO2-Reduktion IT">📊 CO₂-Reduktion in der IT</option>
+                                <option value="Sonstiges">💬 Sonstiges</option>
+                            </select>
+                        </div>
+
+                        <div class="form-gruppe">
+                            <label for="nachricht">Nachricht / Fragen (optional)</label>
+                            <textarea id="nachricht" name="nachricht" rows="4"
+                                placeholder="Beschreiben Sie kurz Ihr Anliegen oder stellen Sie Ihre Fragen..."></textarea>
+                        </div>
+
+                        <div class="form-fehler" id="form-fehler" style="display:none"></div>
+
+                        <button type="submit" class="buchungs-btn" id="buchungs-btn">
+                            📩 Terminanfrage per E-Mail senden
+                        </button>
+                        <p class="datenschutz-hinweis">
+                            Mit dem Absenden stimmen Sie zu, dass Ihre Daten zur Terminvereinbarung
+                            per E-Mail übermittelt werden. Es gilt unsere
+                            <a href="Impressum.html">Datenschutzerklärung</a>.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- KONTAKT-ALTERNATIV -->
+        <section class="kontakt-direkt">
+            <div class="kontakt-direkt-inner">
+                <h2>Lieber direkt Kontakt aufnehmen?</h2>
+                <p>Schreiben Sie uns jederzeit eine E-Mail – wir antworten innerhalb von 24 Stunden.</p>
+                <a href="mailto:gerda.wagner@yahoo.com" class="kontakt-email-btn">
+                    ✉️ gerda.wagner@yahoo.com
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>© 2026 Konvoltic OG &nbsp;|&nbsp;
+           <a href="Impressum.html">Impressum</a> &nbsp;|&nbsp;
+           <a href="mailto:gerda.wagner@yahoo.com">gerda.wagner@yahoo.com</a>
+        </p>
+    </footer>
+
+    <script>
+    /* =========================================================
+       Kalender & Buchungsformular
+    ========================================================= */
+    (function () {
+
+        // --- Konfiguration ---
+        const VERFUEGBARE_ZEITEN = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'];
+        const KONTAKT_EMAIL      = 'gerda.wagner@yahoo.com';
+
+        // --- Zustand ---
+        let aktuellJahr  = new Date().getFullYear();
+        let aktuellMonat = new Date().getMonth(); // 0-basiert
+        let gewaehltesDatum = null;
+        let gewaehlteUhrzeit = null;
+
+        // --- DOM-Refs ---
+        const monatJahrEl     = document.getElementById('monat-jahr');
+        const tageEl          = document.getElementById('kalender-tage');
+        const uhrzeitBereich  = document.getElementById('uhrzeit-bereich');
+        const uhrzeitenGrid   = document.getElementById('uhrzeiten-grid');
+        const ausgewaehltInfo = document.getElementById('ausgewaehlt-info');
+        const terminAnzeige   = document.getElementById('termin-anzeige');
+        const formFehler      = document.getElementById('form-fehler');
+
+        const MONATE = ['Januar','Februar','März','April','Mai','Juni',
+                        'Juli','August','September','Oktober','November','Dezember'];
+        const WOCHENTAGE = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
+
+        // --- Kalender rendern ---
+        function renderKalender() {
+            monatJahrEl.textContent = MONATE[aktuellMonat] + ' ' + aktuellJahr;
+            tageEl.innerHTML = '';
+
+            const heute      = new Date();
+            heute.setHours(0,0,0,0);
+            const ersterTag  = new Date(aktuellJahr, aktuellMonat, 1);
+            const letzterTag = new Date(aktuellJahr, aktuellMonat + 1, 0);
+
+            // Wochentag des ersten Tages (Mo=0 ... So=6)
+            let startOffset = ersterTag.getDay() - 1;
+            if (startOffset < 0) startOffset = 6;
+
+            // Leere Felder davor
+            for (let i = 0; i < startOffset; i++) {
+                const leer = document.createElement('span');
+                leer.className = 'tag leer';
+                tageEl.appendChild(leer);
+            }
+
+            // Tage
+            for (let tag = 1; tag <= letzterTag.getDate(); tag++) {
+                const datum   = new Date(aktuellJahr, aktuellMonat, tag);
+                const btn     = document.createElement('button');
+                btn.type      = 'button';
+                btn.textContent = tag;
+                btn.className = 'tag';
+
+                const istVergangenheit = datum < heute;
+                const istWochenende    = datum.getDay() === 0 || datum.getDay() === 6;
+
+                if (istVergangenheit || istWochenende) {
+                    btn.classList.add('gesperrt');
+                    btn.disabled = true;
+                    btn.title = istWochenende ? 'Wochenende' : 'Vergangenes Datum';
+                } else {
+                    btn.addEventListener('click', function () {
+                        // alle aktiven entfernen
+                        tageEl.querySelectorAll('.tag.aktiv').forEach(b => b.classList.remove('aktiv'));
+                        btn.classList.add('aktiv');
+                        gewaehltesDatum  = datum;
+                        gewaehlteUhrzeit = null;
+                        renderUhrzeiten();
+                        uhrzeitBereich.style.display = 'block';
+                        uhrzeitBereich.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        aktualisiereTerminAnzeige();
+                    });
+                }
+
+                // heute markieren
+                if (datum.getTime() === heute.getTime()) btn.classList.add('heute');
+
+                // ausgewähltes Datum markieren
+                if (gewaehltesDatum && datum.getTime() === gewaehltesDatum.getTime()) {
+                    btn.classList.add('aktiv');
+                }
+
+                tageEl.appendChild(btn);
+            }
+        }
+
+        // --- Uhrzeiten rendern ---
+        function renderUhrzeiten() {
+            uhrzeitenGrid.innerHTML = '';
+            VERFUEGBARE_ZEITEN.forEach(function(zeit) {
+                const btn    = document.createElement('button');
+                btn.type     = 'button';
+                btn.textContent = zeit + ' Uhr';
+                btn.className = 'zeit-btn';
+                if (gewaehlteUhrzeit === zeit) btn.classList.add('aktiv');
+                btn.addEventListener('click', function () {
+                    uhrzeitenGrid.querySelectorAll('.zeit-btn.aktiv').forEach(b => b.classList.remove('aktiv'));
+                    btn.classList.add('aktiv');
+                    gewaehlteUhrzeit = zeit;
+                    aktualisiereTerminAnzeige();
+                });
+                uhrzeitenGrid.appendChild(btn);
+            });
+        }
+
+        // --- Termin-Anzeige aktualisieren ---
+        function aktualisiereTerminAnzeige() {
+            if (gewaehltesDatum) {
+                const wt  = WOCHENTAGE[gewaehltesDatum.getDay() === 0 ? 6 : gewaehltesDatum.getDay() - 1];
+                const tag = String(gewaehltesDatum.getDate()).padStart(2,'0');
+                const mon = String(gewaehltesDatum.getMonth()+1).padStart(2,'0');
+                const jahr = gewaehltesDatum.getFullYear();
+                const uhrzeitStr = gewaehlteUhrzeit ? ' um ' + gewaehlteUhrzeit + ' Uhr' : '';
+                terminAnzeige.textContent = wt + ', ' + tag + '.' + mon + '.' + jahr + uhrzeitStr;
+                ausgewaehltInfo.style.display = 'block';
+            }
+        }
+
+        // --- Navigation ---
+        document.getElementById('prev-month').addEventListener('click', function () {
+            aktuellMonat--;
+            if (aktuellMonat < 0) { aktuellMonat = 11; aktuellJahr--; }
+            renderKalender();
+        });
+
+        document.getElementById('next-month').addEventListener('click', function () {
+            aktuellMonat++;
+            if (aktuellMonat > 11) { aktuellMonat = 0; aktuellJahr++; }
+            renderKalender();
+        });
+
+        // --- Formular absenden → mailto ---
+        document.getElementById('buchungs-formular').addEventListener('submit', function (e) {
+            e.preventDefault();
+            formFehler.style.display = 'none';
+
+            const anrede       = document.getElementById('anrede').value.trim();
+            const vorname      = document.getElementById('vorname').value.trim();
+            const nachname     = document.getElementById('nachname').value.trim();
+            const email        = document.getElementById('email').value.trim();
+            const telefon      = document.getElementById('telefon').value.trim();
+            const unternehmen  = document.getElementById('unternehmen').value.trim();
+            const beratungsart = document.getElementById('beratungsart').value;
+            const nachricht    = document.getElementById('nachricht').value.trim();
+
+            // Validierung
+            const fehler = [];
+            if (!vorname)      fehler.push('Bitte geben Sie Ihren Vornamen ein.');
+            if (!nachname)     fehler.push('Bitte geben Sie Ihren Nachnamen ein.');
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+                               fehler.push('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+            if (!beratungsart) fehler.push('Bitte wählen Sie ein Beratungsthema.');
+            if (!gewaehltesDatum) fehler.push('Bitte wählen Sie ein Datum im Kalender.');
+            if (!gewaehlteUhrzeit) fehler.push('Bitte wählen Sie eine Uhrzeit.');
+
+            if (fehler.length > 0) {
+                formFehler.innerHTML = fehler.map(f => '• ' + f).join('<br>');
+                formFehler.style.display = 'block';
+                formFehler.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return;
+            }
+
+            // Datum formatieren
+            const wt  = WOCHENTAGE[gewaehltesDatum.getDay() === 0 ? 6 : gewaehltesDatum.getDay() - 1];
+            const tag = String(gewaehltesDatum.getDate()).padStart(2,'0');
+            const mon = String(gewaehltesDatum.getMonth()+1).padStart(2,'0');
+            const jahr = gewaehltesDatum.getFullYear();
+            const terminStr = wt + ', ' + tag + '.' + mon + '.' + jahr + ' um ' + gewaehlteUhrzeit + ' Uhr';
+
+            // E-Mail zusammenbauen
+            const betreff = 'Terminanfrage Beratung – ' + vorname + ' ' + nachname + ' – ' + tag + '.' + mon + '.' + jahr;
+
+            const body =
+                'Guten Tag,' +
+                '\n\nhiermit möchte ich einen Beratungstermin bei Konvoltic OG anfragen.' +
+                '\n\n── PERSÖNLICHE DATEN ──────────────────────' +
+                '\nAnrede:        ' + (anrede || '–') +
+                '\nName:          ' + vorname + ' ' + nachname +
+                '\nE-Mail:        ' + email +
+                '\nTelefon:       ' + (telefon || '–') +
+                '\nUnternehmen:   ' + (unternehmen || '–') +
+                '\n\n── WUNSCHTERMIN ────────────────────────────' +
+                '\nDatum & Zeit:  ' + terminStr +
+                '\nThema:         ' + beratungsart +
+                '\n\n── NACHRICHT ───────────────────────────────' +
+                '\n' + (nachricht || '(keine Nachricht)') +
+                '\n\n────────────────────────────────────────────' +
+                '\nDiese Anfrage wurde über das Buchungsformular auf konvoltic.at gesendet.';
+
+            const mailtoLink = 'mailto:' + KONTAKT_EMAIL +
+                '?subject=' + encodeURIComponent(betreff) +
+                '&body='    + encodeURIComponent(body);
+
+            window.location.href = mailtoLink;
+        });
+
+        // --- Init ---
+        renderKalender();
+
+    })();
+    </script>
+
+</body>
+</html>
