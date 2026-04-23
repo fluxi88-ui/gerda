@@ -1071,15 +1071,21 @@ footer a:hover {
 .cta-btn {
     background-color: white;
     color: #1b5e20;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: bold;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-weight: 700;
     font-size: 15px;
+    letter-spacing: 0.4px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    display: inline-block;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cta-btn:hover {
-    background-color: #c8e6c9;
+    background-color: #e8f5e9;
     text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
 }
 
 .cta-btn-outline {
