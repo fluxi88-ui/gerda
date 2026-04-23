@@ -78,6 +78,16 @@
     margin-bottom: 12px;
 }
 
+.vorteil-icon img {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
 .vorteil-card h3 {
     color: #1b5e20;
     font-size: 1rem;
